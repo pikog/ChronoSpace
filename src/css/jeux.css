@@ -22,9 +22,9 @@ body {
   position: absolute;
   width: 1000px;
   height: 100%;
-  background-image: url(../img/space.png);
+  background-image: url(../img/forest_layer1.png), url(../img/forest_bg.png);
   background-repeat: repeat;
-  background-position: 0 0;
+  background-position: 10px 0, 0 0;
   left: 0;
 }
 #game .background .meteor {

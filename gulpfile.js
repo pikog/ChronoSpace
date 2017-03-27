@@ -34,11 +34,11 @@ gulp.task('css', function () {
 });
 
 gulp.task('js', function () {
-  gulp.src('src/js/jeux/main.js')
+  gulp.src('src/js/game/main.js')
     .pipe(include())
     .on('error', console.log)
-    .pipe(rename('game.js'))
-    .pipe(gulp.dest('src/js/jeux/'));
+    .pipe(rename('script.js'))
+    .pipe(gulp.dest('src/js/game/'));
 });
 
 gulp.task('watch', function () {
