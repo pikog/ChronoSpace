@@ -3,10 +3,12 @@ var gulp = require('gulp'),
   htmlbeautify = require('gulp-html-beautify'),
   autoprefixer = require('gulp-autoprefixer'),
   sass = require('gulp-sass'),
-  csscomb = require('gulp-csscomb');
+  csscomb = require('gulp-csscomb'),
+  include = require("gulp-include"),
+  rename = require('gulp-rename');
 
 gulp.task('default', function() {
-  runSequence('sass', ['css', 'html']);
+  runSequence('sass', ['css', 'js']);
 });
 
 gulp.task('html', function () {
@@ -19,7 +21,6 @@ gulp.task('html', function () {
 
 gulp.task('sass', function () {
   gulp.src('src/css/*.scss')
-    .pipe(autoprefixer())
     .pipe(csscomb())
     .pipe(gulp.dest('src/css/'));
 });
@@ -27,6 +28,20 @@ gulp.task('sass', function () {
 gulp.task('css', function () {
   gulp.src('src/css/*.scss')
     .pipe(sass().on('error', sass.logError))
+    .pipe(autoprefixer())
     .pipe(csscomb())
     .pipe(gulp.dest('src/css/'));
+});
+
+gulp.task('js', function () {
+  gulp.src('src/js/jeux/main.js')
+    .pipe(include())
+    .on('error', console.log)
+    .pipe(rename('game.js'))
+    .pipe(gulp.dest('src/js/jeux/'));
+});
+
+gulp.task('watch', function () {
+  gulp.watch('src/css/*.scss', ['css']);
+  gulp.watch('src/js/**/*.js', ['js']);
 });
