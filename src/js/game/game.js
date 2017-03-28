@@ -2,6 +2,7 @@ function Game() {
   this.speed = 0;
   this.background = new Background();
   this.controller = new Controller();
+  this.player = new Player();
 }
 
 Game.prototype.init = function () {
@@ -14,6 +15,8 @@ Game.prototype.ticks = function (speed) {
   setInterval(function () {
       actual.background.scroll(game.speed);
       actual.controller.checkChrono();
+      actual.player.checkGameBorder();
+      actual.player.autoDown();
     },
     10);
 };

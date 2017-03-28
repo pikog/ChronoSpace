@@ -23,7 +23,7 @@ body {
     height: 100%;
     background-image: url(../img/forest_layer1.png), url(../img/forest_bg.png);
     background-repeat: repeat;
-    background-position: 10px 0px, 0px 0px; 
+    background-position: 0px 0px, 0px 0px; 
     left: 0;
     .meteor {
       width: 166px;
@@ -31,12 +31,13 @@ body {
       background: #555555;
     }
   }
-  #player {
+  .player {
     width: 100px;
     height: 100px;
     position: absolute;
-    bottom: 0;
-    left: 10px;
-    background: #AAAAAA;
+    bottom: 0px;
+    left: 150px;
+    background: none;
+    background-image: url(../img/ship.png);
   }
 }

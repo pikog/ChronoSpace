@@ -24,7 +24,7 @@ body {
   height: 100%;
   background-image: url(../img/forest_layer1.png), url(../img/forest_bg.png);
   background-repeat: repeat;
-  background-position: 10px 0, 0 0;
+  background-position: 0px 0px, 0px 0px;
   left: 0;
 }
 #game .background .meteor {
@@ -32,11 +32,12 @@ body {
   height: 166px;
   background: #555555;
 }
-#game #player {
+#game .player {
   width: 100px;
   height: 100px;
   position: absolute;
-  bottom: 0;
-  left: 10px;
-  background: #AAAAAA;
+  bottom: 0px;
+  left: 150px;
+  background: none;
+  background-image: url(../img/ship.png);
 }
