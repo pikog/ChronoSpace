@@ -19,25 +19,46 @@ body {
   overflow: hidden;
 }
 #game .background {
-  position: absolute;
-  width: 1000px;
   height: 100%;
-  background-image: url(../img/forest_layer1.png), url(../img/forest_bg.png);
+  background-color: #000000;
+  background-image: url(../img/layer2.png), url(../img/layer3.png), url(../img/layer1.png), url(../img/layer3.png);
   background-repeat: repeat;
-  background-position: 0px 0px, 0px 0px;
-  left: 0;
-}
-#game .background .meteor {
-  width: 166px;
-  height: 166px;
-  background: #555555;
+  background-position: 0 0, 0 0, 0 0, 0 0;
 }
 #game .player {
   width: 100px;
   height: 100px;
   position: absolute;
-  bottom: 0px;
-  left: 150px;
+  bottom: 0;
+  left: 60px;
   background: none;
   background-image: url(../img/ship.png);
+}
+#game .player .hitbox {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: red;
+}
+#game .obstacles .obstacle {
+  position: absolute;
+  bottom: 0;
+  left: 960px;
+  width: 150px;
+  height: 150px;
+  background-image: url(../img/obstacle_1.png);
+  -webkit-transition: left 0s linear;
+          transition: left 0s linear;
+}
+#game .obstacles .obstacle .hitbox {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: none;
 }

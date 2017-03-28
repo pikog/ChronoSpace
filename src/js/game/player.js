@@ -3,7 +3,8 @@ function Player() {
   this.rise;
   this.speedUp = 100;
   this.timeUp = 0.2;
-  this.timeDown = 1.5;
+  this.factorTimeDown = 0.002;
+  this.hitboxRadius = 70 / 2;
 }
 
 Player.prototype.up = function () {
@@ -18,7 +19,7 @@ Player.prototype.up = function () {
 }
 
 Player.prototype.down = function () {
-  this.player.css("transition", "bottom " + this.timeDown + "s cubic-bezier(0.455, 0.03, 0.515, 0.955)");
+  this.player.css("transition", "bottom " + this.factorTimeDown * this.getY() + "s cubic-bezier(.57,.56,.69,.99) ");
   this.player.css("bottom", 0);
   this.rise = null;
 }
@@ -47,4 +48,11 @@ Player.prototype.autoDown = function () {
   } else {
     this.down();
   }
+}
+
+Player.prototype.getHitbox = function () {
+  var hitbox = {radius: this.hitboxRadius};
+  hitbox.x = this.getX() + 10 + this.hitboxRadius;
+  hitbox.y = this.getY() + 10 + this.hitboxRadius;  
+  return hitbox;
 }

@@ -5,7 +5,9 @@ function Background() {
 
 Background.prototype.scroll = function (speed) {
   this.setX(0, this.getX(0) - speed);
-  this.setX(1, this.getX(1) - speed - speed/1);
+  this.setX(1, this.getX(1) - speed*0.7);
+  this.setX(2, this.getX(2) - speed*2);
+  this.setX(3, this.getX(3) - speed*0.5);
 };
 
 Background.prototype.trueLayer = function (layer) {

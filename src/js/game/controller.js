@@ -10,15 +10,17 @@ Controller.prototype.init = function () {
     if (e.key == "ArrowLeft" || e.key == "ArrowRight") {
       e.preventDefault();
       actual.arrowAlternate(e.key);
-    }
-    else if(e.keyCode == 32) {
+    } else if (e.keyCode == 32) {
       e.preventDefault();
       game.player.up();
-    }
-    else if(e.keyCode == 17) {
+    } else if (e.keyCode == 17) {
       e.preventDefault();
       game.player.down();
     }
+  });
+  $(document).on('click', function (e) {
+    e.preventDefault();
+    game.player.up();
   });
 };
 
@@ -29,12 +31,10 @@ Controller.prototype.arrowAlternate = function (key) {
   } else if (this.lastArrowKey == "ArrowLeft" && key == "ArrowRight") {
     this.lastArrowKey = key;
     game.speed = calcSpeed(this.chrono.result());
-    console.log(this.chrono.result());
     this.chrono.reset();
   } else if (this.lastArrowKey == "ArrowRight" && key == "ArrowLeft") {
     this.lastArrowKey = key;
     game.speed = calcSpeed(this.chrono.result());
-    console.log(this.chrono.result());
     this.chrono.reset();
   }
 }
