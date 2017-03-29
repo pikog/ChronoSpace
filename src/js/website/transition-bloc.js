@@ -19,22 +19,20 @@ function speechDisappearance() {
 
 function gameAppearance() {
   $('#homepage').css('display', 'none');
-  if (!homepageVisible) {
-    $('#game').fadeIn();
-  }
+  $('#game').fadeIn();
 }
 
 $(document).ready(function () {
-  $('.button-empire').click(function(){
+  $('.button-empire').click(function () {
     $('p.text-empire').css('display', 'block');
     $('p.text-rebel').css('display', 'none');
   });
-  
-  $('.button-rebel').click(function(){
+
+  $('.button-rebel').click(function () {
     $('p.text-empire').css('display', 'none');
     $('p.text-rebel').css('display', 'block');
   });
-  
+
   $('.button-choice').click(function () {
     $('#homepage').addClass('animated zoomOutUp');
     window.setTimeout('speechAppearance()', intervalTime);

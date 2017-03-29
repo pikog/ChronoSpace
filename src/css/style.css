@@ -21,6 +21,7 @@ body {
   margin: 0 auto;
 }
 
+
 /*------------------------------*\
 
 ***** HEADER
@@ -39,6 +40,7 @@ header .logo {
 header .logo img {
   width: 100%;
 }
+
 
 /*------------------------------*\
 
@@ -65,7 +67,7 @@ footer a.controlSound {
 
 \*------------------------------*/
 
-#homepage{
+#homepage {
   margin-top: 50vh;
   transform: translateY(-50%);
 }
@@ -75,7 +77,7 @@ footer a.controlSound {
   font-size: 36px;
 }
 
-a.button{
+a.button {
   font-size: 16px;
   color: white;
   padding: 5px 15px;
@@ -102,6 +104,17 @@ a.button-empire:hover {
   background: rgba(255, 61, 61, 0.5);
 }
 
+a.button-empire span:before {
+  content: "";
+  display: block;
+  background: url("../img/logo_empire.png") no-repeat;
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin: 3px 9px 0 0;
+}
+
 a.button-rebel {
   box-shadow: 0 0 50px #0000ff;
   background: rgba(0, 0, 255, 0.5);
@@ -113,12 +126,23 @@ a.button-rebel:hover {
   background: rgba(51, 102, 255, 0.5);
 }
 
-a.button-score{
+a.button-rebel span:after {
+  content: "";
+  display: block;
+  background: url("../img/logo_rebel.png") no-repeat;
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+  float: right;
+  margin: 3px 0 0 9px;
+}
+
+a.button-score {
   display: block;
   transition: all linear 0.25s;
 }
 
-a.button-score:hover{
+a.button-score:hover {
   text-shadow: 0 0 10px white;
 }
 
@@ -170,15 +194,17 @@ a.button-score:hover{
   }
 }
 
+
 /*------------------------------*\
 
 ***** GAME
 
 \*------------------------------*/
 
-#game{
+#game {
   margin-top: 10vh;
 }
+
 
 /*------------------------------*\
 
@@ -193,15 +219,31 @@ a.button-score:hover{
 
 \*------------------------------*/
 
+#rank {
+  margin-top: 5vh;
+}
+
+#rank h1 {
+  text-transform: uppercase;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+th {
+  text-transform: uppercase;
 }
 
 table,
 th,
 td {
   border: 2.5px solid white;
+  padding: 5px;
 }
 
 a.button-homepage {
@@ -211,6 +253,6 @@ a.button-homepage {
   transition: all linear 0.25s;
 }
 
-a.button-homepage:hover{
+a.button-homepage:hover {
   text-shadow: 0 0 10px white;
 }
