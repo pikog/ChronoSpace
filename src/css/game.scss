@@ -20,8 +20,7 @@ body {
   .background {
     height: 100%;
     background-color: #000000;
-    background-image: url(../img/layer2.png), url(../img/layer3.png), url(../img/layer1.png),
-    url(../img/layer3.png);
+    background-image: url(../img/layer2.png), url(../img/layer3.png), url(../img/layer1.png), url(../img/layer3.png);
     background-repeat: repeat;
     background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px;
   }
@@ -33,7 +32,7 @@ body {
     left: 60px;
     background: none;
     background-image: url(../img/ship0.png);
-    .hitbox {
+    /*.hitbox {
       position: absolute;
       bottom: 15px;
       left: 15px;
@@ -41,7 +40,7 @@ body {
       height: 70px;
       border-radius: 50%;
       background: red;
-    }
+    }*/
   }
   .obstacles {
     .obstacle {
@@ -52,7 +51,7 @@ body {
       height: 150px;
       background-image: url(../img/obstacle_1.png);
       transition: left 0s linear;
-      .hitbox {
+      /*.hitbox {
         position: absolute;
         bottom: 10px;
         left: 10px;
@@ -60,8 +59,17 @@ body {
         height: 130px;
         border-radius: 50%;
         background: none;
-      }
+      }*/
     }
+  }
+  .boss {
+    position: absolute;
+    bottom: 175px;
+    left: 960px;
+    width: 150px;
+    height: 150px;
+    background-image: url(../img/obstacle_1.png);
+    transition: bottom 0s linear, left 1s linear;
   }
   .hud {
     position: absolute;
@@ -102,13 +110,13 @@ body {
       background-size: 30px 30px;
     }
   }
-  .gameOver{
+  .gameOver {
     display: none;
     width: 100%;
     height: 100%;
     background: #000;
     position: absolute;
-    top:0;
+    top: 0;
   }
   .audio {
     display: none;

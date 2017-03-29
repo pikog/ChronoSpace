@@ -222,6 +222,22 @@ $(document).ready(function () {
     }, 2000);
   }
   
+  Game.prototype.nextStep = function () {
+    clearInterval(this.tick);
+    var actual = this;
+    this.tick = setInterval(function () {
+        actual.background.scroll(game.speed);
+      },
+      10);
+    $(document).off('keydown');
+    this.controller.reset();
+    this.speed = 4;
+    this.player.setY(200, 1);
+    this.boss.init();
+    setTimeout(function() {
+    }, 1200);
+  }
+  
   Game.prototype.win = function () {
     clearInterval(this.tick);
     var actual = this;

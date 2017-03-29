@@ -33,15 +33,15 @@ body {
   left: 60px;
   background: none;
   background-image: url(../img/ship0.png);
-}
-#game .player .hitbox {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: red;
+  /*.hitbox {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: red;
+    }*/
 }
 #game .obstacles .obstacle {
   position: absolute;
@@ -52,15 +52,25 @@ body {
   background-image: url(../img/obstacle_1.png);
   -webkit-transition: left 0s linear;
           transition: left 0s linear;
+  /*.hitbox {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        background: none;
+      }*/
 }
-#game .obstacles .obstacle .hitbox {
+#game .boss {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  background: none;
+  bottom: 175px;
+  left: 960px;
+  width: 150px;
+  height: 150px;
+  background-image: url(../img/obstacle_1.png);
+  -webkit-transition: bottom 0s linear, left 1s linear;
+          transition: bottom 0s linear, left 1s linear;
 }
 #game .hud {
   position: absolute;
