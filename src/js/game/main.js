@@ -4,6 +4,7 @@ $(document).ready(function () {
   //=require game.js
   //=require player.js
   //=require obstacle.js
+  //=require boss.js
   //=require hud.js
   //=require audio.js
   //=require util.js

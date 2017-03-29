@@ -1,15 +1,25 @@
 function Boss() {
   this.boss;
+  this.chronoMove;
+  this.dateWhenMove;
+  this.timeEndMove;
 }
 
 Boss.prototype.init = function () {
-  player.player.after('<div class="boss"><div>');
   this.boss = $(".boss");
-  this.boss.css("left", 790);
+  this.boss.css("left", 750);
 };
 
 Boss.prototype.move = function () {
-  var posY = Math.floor(Math.random * 351);
-  this.boss.css("transition-duration", 0.05 * parseInt(Math.abs(this.boss.css("left") - posY)) + "s");
-  this.boss.css("bottom", posY);
+  if(this.chronoMove == null || this.chronoMove.result() >= this.timeEndMove) {
+    if(this.chronoMove == null) {
+      this.chronoMove = new Chrono();
+    }
+    var posY = Math.floor(Math.random() * 351);
+    var timeToMove = 5 * Math.abs(parseInt(this.boss.css("bottom")) - posY);
+    this.boss.css("transition-duration", timeToMove + "ms");
+    this.boss.css("bottom", posY);
+    this.timeEndMove = timeToMove + 2000;
+    this.chronoMove.reset();
+  }
 };

@@ -8,15 +8,15 @@ $(document).ready(function () {
   Controller.prototype.init = function () {
     var actual = this;
     $(document).on('keydown', function (e) {
-      if (e.key == "ArrowLeft" || e.key == "ArrowRight") {
+      if ((e.key == "ArrowLeft" || e.key == "ArrowRight") && game.step == 0) {
         e.preventDefault();
         actual.arrowAlternate(e.key);
       } else if (e.keyCode == 32) {
         e.preventDefault();
         game.player.up();
-      } else if (e.keyCode == 17) {
+      }
+      else if (e.keyCode == 120 && game.step == 1) {
         e.preventDefault();
-        game.player.down();
       }
     });
   };
@@ -128,11 +128,13 @@ $(document).ready(function () {
     this.player = new Player();
     this.hud = new Hud();
     this.audio = new Audio();
+    this.boss = new Boss();
     this.obstaclesContainer = $(".obstacles");
     this.currentObstaclesId = [];
     this.obstacles = [];
     this.tick;
-    this.goal = 20;
+    this.goal = 1;
+    this.step = 0;
   }
   
   Game.prototype.init = function () {
@@ -146,19 +148,31 @@ $(document).ready(function () {
   
   Game.prototype.ticks = function () {
     var actual = this;
-    this.tick = setInterval(function () {
-        actual.background.scroll(game.speed);
-        actual.controller.checkChrono();
-        actual.player.checkGameBorder();
-        actual.player.autoDown();
-        for (var i = 0; i < actual.obstacles.length; i++) {
-          actual.obstacles[i].checkSpeed();
-        }
-        actual.checkCollision();
-        actual.autoGenerateObstacle();
-        actual.hud.timeUpdate();
-      },
-      10);
+    if (this.step == 1) {
+      clearInterval(this.tick);
+      this.tick = setInterval(function () {
+          actual.background.scroll(actual.speed);
+          actual.hud.timeUpdate();
+          actual.player.checkGameBorder();
+          actual.player.autoDown();
+          actual.boss.move();
+        },
+        10);
+    } else {
+      this.tick = setInterval(function () {
+          actual.background.scroll(actual.speed);
+          actual.controller.checkChrono();
+          actual.player.checkGameBorder();
+          actual.player.autoDown();
+          for (var i = 0; i < actual.obstacles.length; i++) {
+            actual.obstacles[i].checkSpeed();
+          }
+          actual.checkCollision();
+          actual.autoGenerateObstacle();
+          actual.hud.timeUpdate();
+        },
+        10);
+    }
   };
   
   Game.prototype.giveObstacleId = function () {
@@ -180,7 +194,7 @@ $(document).ready(function () {
         new Obstacle().init();
         this.hud.removeLife();
         this.audio.explosionSound();
-        if(this.hud.life == 0) {
+        if (this.hud.life == 0) {
           this.gameOver();
           this.audio.failSound();
         }
@@ -189,13 +203,12 @@ $(document).ready(function () {
   }
   
   Game.prototype.autoGenerateObstacle = function () {
-    for(var i = 0; i < this.obstacles.length; i++) {
-      if(this.obstacles[i].getX() == -150) {
+    for (var i = 0; i < this.obstacles.length; i++) {
+      if (this.obstacles[i].getX() == -150) {
         this.obstacles[i].remove();
-        if(this.hud.addProgression() == this.goal) {
-          this.win();
-        }
-        else {
+        if (this.hud.addProgression() == this.goal) {
+          this.nextStep();
+        } else {
           new Obstacle().init();
         }
       }
@@ -205,7 +218,7 @@ $(document).ready(function () {
   Game.prototype.reset = function () {
     clearInterval(this.tick);
     $(document).off('keydown');
-    for(var i = 0; i < this.obstacles.length; i++) {
+    for (var i = 0; i < this.obstacles.length; i++) {
       this.obstacles[i].remove();
     }
     this.speed = 0;
@@ -217,7 +230,7 @@ $(document).ready(function () {
   
   Game.prototype.gameOver = function () {
     $(".gameOver").fadeIn();
-    setTimeout(function() {
+    setTimeout(function () {
       game.reset();
     }, 2000);
   }
@@ -226,15 +239,18 @@ $(document).ready(function () {
     clearInterval(this.tick);
     var actual = this;
     this.tick = setInterval(function () {
-        actual.background.scroll(game.speed);
+        actual.background.scroll(actual.speed);
+        actual.hud.timeUpdate();
       },
       10);
     $(document).off('keydown');
-    this.controller.reset();
     this.speed = 4;
     this.player.setY(200, 1);
     this.boss.init();
-    setTimeout(function() {
+    this.step = 1;
+    this.controller.init();
+    setTimeout(function () {
+      game.ticks();
     }, 1200);
   }
   
@@ -242,7 +258,7 @@ $(document).ready(function () {
     clearInterval(this.tick);
     var actual = this;
     this.tick = setInterval(function () {
-        actual.background.scroll(game.speed);
+        actual.background.scroll(actual.speed);
       },
       10);
     var result = this.hud.chrono.result();
@@ -253,11 +269,11 @@ $(document).ready(function () {
     this.controller.reset();
     this.speed = 4;
     this.player.setY(200, 1);
-    setTimeout(function() {
+    setTimeout(function () {
       actual.speed = 6;
       actual.player.setX(960, 1.5);
     }, 1200);
-    setTimeout(function() {
+    setTimeout(function () {
       game.gameOver();
     }, 3000);
   }
@@ -353,7 +369,7 @@ $(document).ready(function () {
   Obstacle.prototype.init = function () {
     this.id = game.giveObstacleId();
     game.currentObstaclesId.push(this.id);
-    game.obstaclesContainer.append('<div class="obstacle" id="obstacle-' + this.id + '"><div class="hitbox"></div><div>');
+    game.obstaclesContainer.append('<div class="obstacle" id="obstacle-' + this.id + '"></div>');
     this.obstacle = $('#obstacle-' + this.id);
     game.obstacles.push(this);
     this.obstacle.css("bottom", (Math.floor(Math.random() * 3)) * 165);
@@ -393,6 +409,32 @@ $(document).ready(function () {
     hitbox.y = this.getY() + 10 + this.hitboxRadius;  
     return hitbox;
   }
+  function Boss() {
+    this.boss;
+    this.chronoMove;
+    this.dateWhenMove;
+    this.timeEndMove;
+  }
+  
+  Boss.prototype.init = function () {
+    this.boss = $(".boss");
+    this.boss.css("left", 750);
+  };
+  
+  Boss.prototype.move = function () {
+    if(this.chronoMove == null || this.chronoMove.result() >= this.timeEndMove) {
+      if(this.chronoMove == null) {
+        this.chronoMove = new Chrono();
+      }
+      var posY = Math.floor(Math.random() * 351);
+      var timeToMove = 5 * Math.abs(parseInt(this.boss.css("bottom")) - posY);
+      this.boss.css("transition-duration", timeToMove + "ms");
+      this.boss.css("bottom", posY);
+      this.timeEndMove = timeToMove + 2000;
+      this.chronoMove.reset();
+    }
+  };
+  
   function Hud() {
     this.hud = $(".hud");
     this.lifeElem = $(".hud .life"); 

@@ -7,7 +7,7 @@ function Obstacle() {
 Obstacle.prototype.init = function () {
   this.id = game.giveObstacleId();
   game.currentObstaclesId.push(this.id);
-  game.obstaclesContainer.append('<div class="obstacle" id="obstacle-' + this.id + '"><div class="hitbox"></div><div>');
+  game.obstaclesContainer.append('<div class="obstacle" id="obstacle-' + this.id + '"></div>');
   this.obstacle = $('#obstacle-' + this.id);
   game.obstacles.push(this);
   this.obstacle.css("bottom", (Math.floor(Math.random() * 3)) * 165);

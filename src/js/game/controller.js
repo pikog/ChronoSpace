@@ -7,15 +7,15 @@ function Controller() {
 Controller.prototype.init = function () {
   var actual = this;
   $(document).on('keydown', function (e) {
-    if (e.key == "ArrowLeft" || e.key == "ArrowRight") {
+    if ((e.key == "ArrowLeft" || e.key == "ArrowRight") && game.step == 0) {
       e.preventDefault();
       actual.arrowAlternate(e.key);
     } else if (e.keyCode == 32) {
       e.preventDefault();
       game.player.up();
-    } else if (e.keyCode == 17) {
+    }
+    else if (e.keyCode == 120 && game.step == 1) {
       e.preventDefault();
-      game.player.down();
     }
   });
 };
