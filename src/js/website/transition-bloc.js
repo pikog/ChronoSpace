@@ -1,6 +1,7 @@
 var intervalTime = 1000;
 
-$('#speech').css('display', 'none');
+// only #homepage displayed
+$('#description').css('display', 'none');
 $('#game').css('display', 'none');
 $('#win').css('display', 'none');
 
@@ -9,12 +10,12 @@ function homepageAppearance() {
   $('#homepage').fadeIn();
 }
 
-function speechAppearance() {
-  $('#speech').fadeIn();
+function descriptionAppearance() {
+  $('#description').fadeIn();
 }
 
-function speechDisappearance() {
-  $('#speech').fadeOut();
+function descriptionDisappearance() {
+  $('#description').fadeOut();
 }
 
 function gameAppearance() {
@@ -23,30 +24,32 @@ function gameAppearance() {
 }
 
 $(document).ready(function () {
+  // if Empire is chosen
   $('.button-empire').click(function () {
     $('p.text-empire').css('display', 'block');
-    $('p.text-rebel').css('display', 'none');
+    $('p.text-alliance').css('display', 'none');
   });
 
-  $('.button-rebel').click(function () {
+  // if Alliance is Chosen
+  $('.button-alliance').click(function () {
     $('p.text-empire').css('display', 'none');
-    $('p.text-rebel').css('display', 'block');
+    $('p.text-alliance').css('display', 'block');
   });
 
+  // display #description then #game
   $('.button-choice').click(function () {
     $('#homepage').addClass('animated zoomOutUp');
-    window.setTimeout('speechAppearance()', intervalTime);
-    window.setTimeout('speechDisappearance()', intervalTime * 10);
+    window.setTimeout('descriptionAppearance()', intervalTime);
+    window.setTimeout('descriptionDisappearance()', intervalTime * 10);
     gameVisible = window.setTimeout('gameAppearance()', intervalTime * 12.5);
   });
 
+  // if the logo is clicked then #homepage reappears
   $('a.logo').click(function () {
-    if ($('#homepage').css('display', 'none')) {
-      $('#speech').fadeOut();
-      $('#game').fadeOut();
-      $('#win').fadeOut();
-      clearTimeout(gameVisible);
-      window.setTimeout('homepageAppearance()', intervalTime);
-    }
+    $('#description').fadeOut();
+    $('#game').fadeOut();
+    $('#win').fadeOut();
+    clearTimeout(gameVisible);
+    window.setTimeout('homepageAppearance()', intervalTime);
   });
 });
