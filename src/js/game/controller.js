@@ -14,8 +14,9 @@ Controller.prototype.init = function () {
       e.preventDefault();
       game.player.up();
     }
-    else if (e.keyCode == 120 && game.step == 1) {
+    else if(e.keyCode == 65 && game.step == 1) {
       e.preventDefault();
+      game.player.shoot();
     }
   });
 };

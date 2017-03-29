@@ -15,8 +15,9 @@ $(document).ready(function () {
         e.preventDefault();
         game.player.up();
       }
-      else if (e.keyCode == 120 && game.step == 1) {
+      else if(e.keyCode == 65 && game.step == 1) {
         e.preventDefault();
+        game.player.shoot();
       }
     });
   };
@@ -158,6 +159,9 @@ $(document).ready(function () {
           actual.player.checkGameBorder();
           actual.player.autoDown();
           actual.boss.move();
+          actual.boss.shoot();
+          actual.checkCollision(actual.player, actual.bullets);
+          actual.checkCollision(actual.boss, actual.bullets);
         },
         10);
     } else {
@@ -169,7 +173,7 @@ $(document).ready(function () {
           for (var i = 0; i < actual.obstacles.length; i++) {
             actual.obstacles[i].checkSpeed();
           }
-          actual.checkCollision();
+          actual.checkCollision(actual.player, actual.obstacles);
           actual.autoGenerateObstacle();
           actual.hud.timeUpdate();
         },
@@ -182,25 +186,35 @@ $(document).ready(function () {
     return i;
   };
   
-  Game.prototype.checkCollision = function () {
-    var playerHitbox = this.player.getHitbox();
-    for (var i = 0; i < this.obstacles.length; i++) {
-      var obstacleHitbox = this.obstacles[i].getHitbox();
+  Game.prototype.checkCollision = function (entity, projectiles) {
+    var entityHitbox = entity.getHitbox();
+    for (var i = 0; i < projectiles.length; i++) {
+      var projectileHitbox = projectiles[i].getHitbox();
   
-      var dx = obstacleHitbox.x - playerHitbox.x;
-      var dy = obstacleHitbox.y - playerHitbox.y;
+      var dx = projectileHitbox.x - entityHitbox.x;
+      var dy = projectileHitbox.y - entityHitbox.y;
       var distance = Math.sqrt(dx * dx + dy * dy);
   
-      if (distance < obstacleHitbox.radius + playerHitbox.radius) {
-        this.obstacles[i].remove();
-        new Obstacle().init();
-        this.hud.removeLife();
-        this.audio.explosionSound();
-        if (this.hud.life == 0) {
-          this.gameOver();
-          this.audio.failSound();
-        }
+      if (distance < projectileHitbox.radius + entityHitbox.radius) {
+        this.collision(entity, projectiles[i]);
       }
+    }
+  }
+  
+  Game.prototype.collision = function (entity, projectile) {
+    if (projectile instanceof Obstacle) {
+      projectile.remove();
+      new Obstacle().init();
+      this.hud.removeLife();
+      this.audio.explosionSound();
+    } else if (projectile instanceof Bullet && projectile.shooter instanceof Boss) {
+      projectile.remove();
+      this.hud.removeLife();
+      this.audio.explosionSound();
+    } else if (projectile instanceof Bullet && projectile.shooter instanceof Player) {
+      projectile.remove();
+      this.boss.removeLife();
+      this.audio.explosionSound();
     }
   }
   
@@ -286,8 +300,9 @@ $(document).ready(function () {
     this.speedUp = 100;
     this.timeUp = 0.2;
     this.factorTimeDown = 0.002;
-    this.hitboxRadius = 70 / 2;
+    this.hitboxRadius = 100 / 2;
     this.side = 0;
+    this.chronoShoot;
   }
   
   Player.prototype.up = function () {
@@ -302,7 +317,7 @@ $(document).ready(function () {
   }
   
   Player.prototype.down = function () {
-    this.player.css("transition", "bottom " + this.factorTimeDown * this.getY() + "s cubic-bezier(.57,.56,.69,.99) ");
+    this.player.css("transition", "bottom " + this.factorTimeDown * this.getY() + "s cubic-bezier(.57,.56,.69,.99)");
     this.player.css("bottom", 0);
     this.rise = null;
   }
@@ -326,7 +341,7 @@ $(document).ready(function () {
   }
   
   Player.prototype.setSkin = function (val) {
-    this.player.css("background-image", "url(../img/space" + val + ".png)");
+    this.player.css("background-image", "url(img/ship" + val + ".png)");
     this.side = val;
   }
   
@@ -349,11 +364,25 @@ $(document).ready(function () {
   }
   
   Player.prototype.getHitbox = function () {
-    var hitbox = {radius: this.hitboxRadius};
+    var hitbox = {
+      radius: this.hitboxRadius
+    };
     hitbox.x = this.getX() + 10 + this.hitboxRadius;
-    hitbox.y = this.getY() + 10 + this.hitboxRadius;  
+    hitbox.y = this.getY() + 10 + this.hitboxRadius;
     return hitbox;
   }
+  
+  Player.prototype.shoot = function () {
+    if (this.chronoShoot == null || this.chronoShoot.result() >= 700) {
+      if (this.chronoShoot == null) {
+        this.chronoShoot = new Chrono();
+      }
+      var bullet = new Bullet();
+      bullet.init(this, this.getX() + 100, this.getY() + 50);
+      bullet.move();
+      this.chronoShoot.reset();
+    }
+  };
   
   Player.prototype.reset = function () {
     this.rise = null;
@@ -362,6 +391,7 @@ $(document).ready(function () {
     this.player.css("left", 60);
     this.setSkin(0);
   }
+  
   function Obstacle() {
     this.id;
     this.obstacle;
@@ -375,6 +405,7 @@ $(document).ready(function () {
     this.obstacle = $('#obstacle-' + this.id);
     game.obstacles.push(this);
     this.obstacle.css("bottom", (Math.floor(Math.random() * 3)) * 165);
+    this.obstacle.css("background-image", "url(img/obstacle" + Math.floor(Math.random()*2) + ".png)");
   };
   
   Obstacle.prototype.remove = function () {
@@ -414,18 +445,35 @@ $(document).ready(function () {
   function Boss() {
     this.boss;
     this.chronoMove;
+    this.chronoShoot;
     this.dateWhenMove;
     this.timeEndMove;
+    this.hitboxRadius = 130 / 2;
+    this.life = 5;
+    this.lifeElem = $(".boss .life");
   }
   
   Boss.prototype.init = function () {
     this.boss = $(".boss");
     this.boss.css("left", 750);
+    this.setLife(this.life);
+  };
+  
+  Boss.prototype.setLife = function (life) {
+    this.lifeElem.css("width", 10 * life);
+  };
+  
+  Boss.prototype.removeLife = function (life) {
+    this.life--;
+    this.setLife(this.life);
+    if (this.life == 0) {
+      game.win();
+    }
   };
   
   Boss.prototype.move = function () {
-    if(this.chronoMove == null || this.chronoMove.result() >= this.timeEndMove) {
-      if(this.chronoMove == null) {
+    if (this.chronoMove == null || this.chronoMove.result() >= this.timeEndMove) {
+      if (this.chronoMove == null) {
         this.chronoMove = new Chrono();
       }
       var posY = Math.floor(Math.random() * 351);
@@ -434,27 +482,49 @@ $(document).ready(function () {
       this.boss.css("bottom", posY);
       this.timeEndMove = timeToMove + 2000;
       this.chronoMove.reset();
-      new Bullet().init(this);
     }
   };
   
   Boss.prototype.shoot = function () {
-    
+    if (this.chronoShoot == null || this.chronoShoot.result() >= 700) {
+      if (this.chronoShoot == null) {
+        this.chronoShoot = new Chrono();
+      }
+      var bullet = new Bullet();
+      bullet.init(this, parseInt(this.boss.css("left")), parseInt(this.boss.css("bottom")) + 75);
+      bullet.move();
+      this.chronoShoot.reset();
+    }
   };
   
+  Boss.prototype.getHitbox = function () {
+    var hitbox = {
+      radius: this.hitboxRadius
+    };
+    hitbox.x = parseInt(this.boss.css("left")) + 10 + this.hitboxRadius;
+    hitbox.y = parseInt(this.boss.css("bottom")) + 10 + this.hitboxRadius;
+    return hitbox;
+  }
+  
   function Bullet() {
-    this.id;
     this.bullet;
     this.hitboxRadius = 10 / 2;
     this.shooter;
-    this.speed = 5;
+    this.speed = 0.002;
   }
   
-  Bullet.prototype.init = function (entity) {
-    this.bullet = game.bulletsContainer.append('<div class="bullet"><div class="hitbox"></div></div>');
+  Bullet.prototype.init = function (entity, x, y) {
+    this.bullet = $('<div class="bullet"></div>').appendTo(game.bulletsContainer);
     game.bullets.push(this);
     this.shooter = entity;
-    console.log(game.bullets);
+    if(entity instanceof Player) {
+      this.bullet.css("left", x);
+      this.bullet.css("bottom", y);
+    }
+    else {
+      this.bullet.css("left", x - 35);
+      this.bullet.css("bottom", y);
+    }
   };
   
   Bullet.prototype.remove = function () {
@@ -462,49 +532,55 @@ $(document).ready(function () {
     this.bullet.remove();
   };
   
-  Obstacle.prototype.move = function () {
-    if(typeof entity === 'Player') {
-      this.obstacle.css("transition-duration", this.speed * (960 - this.getX()) + "s");
-      this.obstacle.css("right", 960);
+  Bullet.prototype.move = function () {
+    if(this.shooter instanceof Player) {
+      this.bullet.css("transition-duration", this.speed * (960 - this.getX()) + "s");
+      this.bullet.css("left", 960);
     }
     else {
-      this.obstacle.css("transition-duration", this.speed * (this.getX() + 10) + "s");
-      this.obstacle.css("left", -10);
+      this.bullet.css("transition-duration", this.speed * (this.getX() + 50) + "s");
+      this.bullet.css("left", -50);
     }
   };
   
   Bullet.prototype.getX = function () {
-    return parseInt(this.obstacle.css("left"));
+    return parseInt(this.bullet.css("left"));
   }
   
   Bullet.prototype.getY = function () {
-    return parseInt(this.obstacle.css("bottom"));
+    return parseInt(this.bullet.css("bottom"));
   }
   
   Bullet.prototype.getHitbox = function () {
     var hitbox = {radius: this.hitboxRadius};
-    hitbox.x = this.getX() + 10 + this.hitboxRadius;
-    hitbox.y = this.getY() + 10 + this.hitboxRadius;  
+    if(this.shooter instanceof Player) {
+      hitbox.x = this.getX() + 40 +  this.hitboxRadius;
+      hitbox.y = this.getY() + this.hitboxRadius;
+    }
+    else {
+      hitbox.x = this.getX() + this.hitboxRadius;
+      hitbox.y = this.getY() + this.hitboxRadius;
+    }
     return hitbox;
   }
   function Hud() {
     this.hud = $(".hud");
-    this.lifeElem = $(".hud .life"); 
+    this.lifeElem = $(".hud .life");
     this.timeElem = $(".hud .time");
     this.goalElem = $(".hud .goal");
     this.chrono;
     this.life = 3;
     this.progression = 0;
   }
-    
+  
   Hud.prototype.init = function () {
     this.chrono = new Chrono();
     this.setLife(this.life);
   };
   
   Hud.prototype.timeUpdate = function () {
-    if(this.chrono) {
-      this.timeElem.text((this.chrono.result()/1000).toFixed(1) + "s");
+    if (this.chrono) {
+      this.timeElem.text((this.chrono.result() / 1000).toFixed(1) + "s");
     }
   };
   
@@ -515,15 +591,19 @@ $(document).ready(function () {
   Hud.prototype.removeLife = function (life) {
     this.life--;
     this.setLife(this.life);
+    if (this.life == 0) {
+      game.gameOver();
+      game.audio.failSound();
+    }
   };
-    
+  
   Hud.prototype.addProgression = function () {
     this.setProgression(++this.progression);
     return this.progression;
   };
   
   Hud.prototype.setProgression = function (progression) {
-    this.goalElem.css("width", (progression/game.goal)*100 + "%");
+    this.goalElem.css("width", (progression / game.goal) * 100 + "%");
   };
   
   Hud.prototype.reset = function () {
@@ -535,6 +615,7 @@ $(document).ready(function () {
     this.progression = 0;
     this.hud.show();
   };
+  
   function Audio() {
     this.theme = $("audio#theme")[0];
     this.explosion = $("audio#explosion")[0];

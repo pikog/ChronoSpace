@@ -49,7 +49,7 @@ body {
   left: 960px;
   width: 150px;
   height: 150px;
-  background-image: url(../img/obstacle_1.png);
+  background-image: url(../img/obstacle0.png);
   -webkit-transition: left 0s linear;
           transition: left 0s linear;
   /*.hitbox {
@@ -68,9 +68,18 @@ body {
   left: 960px;
   width: 150px;
   height: 150px;
-  background-image: url(../img/obstacle_1.png);
+  background-image: url(../img/boss0.png);
   -webkit-transition: bottom 0s linear, left 1s linear;
           transition: bottom 0s linear, left 1s linear;
+}
+#game .boss .life {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background: url(../img/life.png) repeat;
+  background-size: 10px 10px;
 }
 #game .bullets .bullet {
   position: absolute;

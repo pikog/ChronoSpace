@@ -1,16 +1,22 @@
 function Bullet() {
-  this.id;
   this.bullet;
   this.hitboxRadius = 10 / 2;
   this.shooter;
-  this.speed = 5;
+  this.speed = 0.002;
 }
 
-Bullet.prototype.init = function (entity) {
-  this.bullet = game.bulletsContainer.append('<div class="bullet"><div class="hitbox"></div></div>');
+Bullet.prototype.init = function (entity, x, y) {
+  this.bullet = $('<div class="bullet"></div>').appendTo(game.bulletsContainer);
   game.bullets.push(this);
   this.shooter = entity;
-  console.log(game.bullets);
+  if(entity instanceof Player) {
+    this.bullet.css("left", x);
+    this.bullet.css("bottom", y);
+  }
+  else {
+    this.bullet.css("left", x - 35);
+    this.bullet.css("bottom", y);
+  }
 };
 
 Bullet.prototype.remove = function () {
@@ -18,28 +24,34 @@ Bullet.prototype.remove = function () {
   this.bullet.remove();
 };
 
-Obstacle.prototype.move = function () {
-  if(typeof entity === 'Player') {
-    this.obstacle.css("transition-duration", this.speed * (960 - this.getX()) + "s");
-    this.obstacle.css("right", 960);
+Bullet.prototype.move = function () {
+  if(this.shooter instanceof Player) {
+    this.bullet.css("transition-duration", this.speed * (960 - this.getX()) + "s");
+    this.bullet.css("left", 960);
   }
   else {
-    this.obstacle.css("transition-duration", this.speed * (this.getX() + 10) + "s");
-    this.obstacle.css("left", -10);
+    this.bullet.css("transition-duration", this.speed * (this.getX() + 50) + "s");
+    this.bullet.css("left", -50);
   }
 };
 
 Bullet.prototype.getX = function () {
-  return parseInt(this.obstacle.css("left"));
+  return parseInt(this.bullet.css("left"));
 }
 
 Bullet.prototype.getY = function () {
-  return parseInt(this.obstacle.css("bottom"));
+  return parseInt(this.bullet.css("bottom"));
 }
 
 Bullet.prototype.getHitbox = function () {
   var hitbox = {radius: this.hitboxRadius};
-  hitbox.x = this.getX() + 10 + this.hitboxRadius;
-  hitbox.y = this.getY() + 10 + this.hitboxRadius;  
+  if(this.shooter instanceof Player) {
+    hitbox.x = this.getX() + 40 +  this.hitboxRadius;
+    hitbox.y = this.getY() + this.hitboxRadius;
+  }
+  else {
+    hitbox.x = this.getX() + this.hitboxRadius;
+    hitbox.y = this.getY() + this.hitboxRadius;
+  }
   return hitbox;
 }

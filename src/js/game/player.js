@@ -4,8 +4,9 @@ function Player() {
   this.speedUp = 100;
   this.timeUp = 0.2;
   this.factorTimeDown = 0.002;
-  this.hitboxRadius = 70 / 2;
+  this.hitboxRadius = 100 / 2;
   this.side = 0;
+  this.chronoShoot;
 }
 
 Player.prototype.up = function () {
@@ -20,7 +21,7 @@ Player.prototype.up = function () {
 }
 
 Player.prototype.down = function () {
-  this.player.css("transition", "bottom " + this.factorTimeDown * this.getY() + "s cubic-bezier(.57,.56,.69,.99) ");
+  this.player.css("transition", "bottom " + this.factorTimeDown * this.getY() + "s cubic-bezier(.57,.56,.69,.99)");
   this.player.css("bottom", 0);
   this.rise = null;
 }
@@ -44,7 +45,7 @@ Player.prototype.setY = function (val, speed) {
 }
 
 Player.prototype.setSkin = function (val) {
-  this.player.css("background-image", "url(../img/space" + val + ".png)");
+  this.player.css("background-image", "url(img/ship" + val + ".png)");
   this.side = val;
 }
 
@@ -67,11 +68,25 @@ Player.prototype.autoDown = function () {
 }
 
 Player.prototype.getHitbox = function () {
-  var hitbox = {radius: this.hitboxRadius};
+  var hitbox = {
+    radius: this.hitboxRadius
+  };
   hitbox.x = this.getX() + 10 + this.hitboxRadius;
-  hitbox.y = this.getY() + 10 + this.hitboxRadius;  
+  hitbox.y = this.getY() + 10 + this.hitboxRadius;
   return hitbox;
 }
+
+Player.prototype.shoot = function () {
+  if (this.chronoShoot == null || this.chronoShoot.result() >= 700) {
+    if (this.chronoShoot == null) {
+      this.chronoShoot = new Chrono();
+    }
+    var bullet = new Bullet();
+    bullet.init(this, this.getX() + 100, this.getY() + 50);
+    bullet.move();
+    this.chronoShoot.reset();
+  }
+};
 
 Player.prototype.reset = function () {
   this.rise = null;

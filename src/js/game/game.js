@@ -35,6 +35,9 @@ Game.prototype.ticks = function () {
         actual.player.checkGameBorder();
         actual.player.autoDown();
         actual.boss.move();
+        actual.boss.shoot();
+        actual.checkCollision(actual.player, actual.bullets);
+        actual.checkCollision(actual.boss, actual.bullets);
       },
       10);
   } else {
@@ -46,7 +49,7 @@ Game.prototype.ticks = function () {
         for (var i = 0; i < actual.obstacles.length; i++) {
           actual.obstacles[i].checkSpeed();
         }
-        actual.checkCollision();
+        actual.checkCollision(actual.player, actual.obstacles);
         actual.autoGenerateObstacle();
         actual.hud.timeUpdate();
       },
@@ -59,25 +62,35 @@ Game.prototype.giveObstacleId = function () {
   return i;
 };
 
-Game.prototype.checkCollision = function () {
-  var playerHitbox = this.player.getHitbox();
-  for (var i = 0; i < this.obstacles.length; i++) {
-    var obstacleHitbox = this.obstacles[i].getHitbox();
+Game.prototype.checkCollision = function (entity, projectiles) {
+  var entityHitbox = entity.getHitbox();
+  for (var i = 0; i < projectiles.length; i++) {
+    var projectileHitbox = projectiles[i].getHitbox();
 
-    var dx = obstacleHitbox.x - playerHitbox.x;
-    var dy = obstacleHitbox.y - playerHitbox.y;
+    var dx = projectileHitbox.x - entityHitbox.x;
+    var dy = projectileHitbox.y - entityHitbox.y;
     var distance = Math.sqrt(dx * dx + dy * dy);
 
-    if (distance < obstacleHitbox.radius + playerHitbox.radius) {
-      this.obstacles[i].remove();
-      new Obstacle().init();
-      this.hud.removeLife();
-      this.audio.explosionSound();
-      if (this.hud.life == 0) {
-        this.gameOver();
-        this.audio.failSound();
-      }
+    if (distance < projectileHitbox.radius + entityHitbox.radius) {
+      this.collision(entity, projectiles[i]);
     }
+  }
+}
+
+Game.prototype.collision = function (entity, projectile) {
+  if (projectile instanceof Obstacle) {
+    projectile.remove();
+    new Obstacle().init();
+    this.hud.removeLife();
+    this.audio.explosionSound();
+  } else if (projectile instanceof Bullet && projectile.shooter instanceof Boss) {
+    projectile.remove();
+    this.hud.removeLife();
+    this.audio.explosionSound();
+  } else if (projectile instanceof Bullet && projectile.shooter instanceof Player) {
+    projectile.remove();
+    this.boss.removeLife();
+    this.audio.explosionSound();
   }
 }
 

@@ -11,6 +11,7 @@ Obstacle.prototype.init = function () {
   this.obstacle = $('#obstacle-' + this.id);
   game.obstacles.push(this);
   this.obstacle.css("bottom", (Math.floor(Math.random() * 3)) * 165);
+  this.obstacle.css("background-image", "url(img/obstacle" + Math.floor(Math.random()*2) + ".png)");
 };
 
 Obstacle.prototype.remove = function () {
