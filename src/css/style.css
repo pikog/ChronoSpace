@@ -6,7 +6,7 @@
 
 body {
   color: white;
-  background-image: url(../img/bg_site.png);
+  background: url(../img/bg_site.png) no-repeat center fixed;
   font-family: 'Droid Sans', 'Arial', sans-serif;
   background-size: cover;
   text-align: center;
@@ -32,20 +32,22 @@ section {
   transform: translateY(-50%);
   */
 }
+
+
 /*------------------------------*\
 
 ***** HEADER
 
 \*------------------------------*/
 
-header{
+header {
   position: fixed;
   z-index: 1000;
   width: 100%;
   top: 0;
 }
 
-header .logo{
+header .logo {
   width: 480px;
   margin: 20px auto 0 auto;
 }
@@ -53,6 +55,7 @@ header .logo{
 header .logo img {
   width: 100%;
 }
+
 
 /*------------------------------*\
 
@@ -100,12 +103,12 @@ a.button.button-empire:hover {
   float: right;
 }
 
+
 /*------------------------------*\
 
 ***** SPEECH
 
 \*------------------------------*/
-
 
 
 /*------------------------------*\
@@ -115,12 +118,12 @@ a.button.button-empire:hover {
 \*------------------------------*/
 
 
-
 /*------------------------------*\
 
 ***** Win
 
 \*------------------------------*/
+
 
 /*
 #titles {
@@ -164,3 +167,20 @@ a.button.button-empire:hover {
   }
 }
 */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border: 2.5px solid white;
+}
+
+a.button-homepage {
+  font-size: 16px;
+  text-decoration: none;
+  border: none;
+}
