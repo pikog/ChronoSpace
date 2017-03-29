@@ -1,21 +1,54 @@
-// C'est encore un brouillon (ça se voit) et ce n'est que le début.
+var intervalTime = 1000;
 
-document.querySelector('#speech').style.display = 'none';
-document.querySelector('#game').style.display = 'none';
+$('#speech').css('display', 'none');
+$('#game').css('display', 'none');
+$('#win').css('display', 'none');
 
-function speechFadeIn(){
+function homepageAppearance() {
+  $('#homepage').removeClass('animated zoomOutUp');
+  $('#homepage').fadeIn();
+}
+
+function speechAppearance() {
   $('#speech').fadeIn();
 }
 
-function gameFadeIn(){
+function speechDisappearance() {
   $('#speech').fadeOut();
-  window.setTimeout($('#game').fadeIn(), 1000);
+}
+
+function gameAppearance() {
+  $('#homepage').css('display', 'none');
+  if (!homepageVisible) {
+    $('#game').fadeIn();
+  }
 }
 
 $(document).ready(function () {
+  $('.button-empire').click(function(){
+    $('p.text-empire').css('display', 'block');
+    $('p.text-rebel').css('display', 'none');
+  });
+  
+  $('.button-rebel').click(function(){
+    $('p.text-empire').css('display', 'none');
+    $('p.text-rebel').css('display', 'block');
+  });
+  
   $('.button-choice').click(function () {
-    $('#homepage').fadeOut();
-    window.setTimeout('speechFadeIn()', 1000);
-    window.setTimeout('gameFadeIn()', 30000);
+    $('#homepage').addClass('animated zoomOutUp');
+    window.setTimeout('speechAppearance()', intervalTime);
+    window.setTimeout('speechDisappearance()', intervalTime * 10);
+    gameVisible = window.setTimeout('gameAppearance()', intervalTime * 12.5);
+  });
+
+  $('a.logo').click(function () {
+    if ($('#homepage').css('display', 'none')) {
+      $('#speech').fadeOut();
+      $('#game').fadeOut();
+      $('#win').fadeOut();
+      clearTimeout(gameVisible);
+      window.setTimeout('homepageAppearance()', intervalTime);
+    }
   });
 });
