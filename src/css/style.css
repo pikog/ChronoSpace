@@ -127,20 +127,18 @@ a.button-score:hover{
 
 /*------------------------------*\
 
-***** GAME PAGE
+***** GAME
 
 \*------------------------------*/
 
 
 /*------------------------------*\
 
-***** Win
+***** SUCCESS
 
 \*------------------------------*/
 
-
-/*
-#titles {
+.content-bloc {
   position: absolute;
   width: 18em;
   height: 50em;
@@ -155,7 +153,7 @@ a.button-score:hover{
   transform: perspective(300px) rotateX(25deg);
 }
 
-#titles:after {
+.content-bloc:after {
   position: absolute;
   content: ' ';
   left: 0;
@@ -166,7 +164,7 @@ a.button-score:hover{
   pointer-events: none;
 }
 
-#titlecontent {
+.content-text {
   position: absolute;
   top: 100%;
   animation: scroll 45s linear 1s infinite;
@@ -180,7 +178,12 @@ a.button-score:hover{
     top: -170%;
   }
 }
-*/
+
+/*------------------------------*\
+
+***** RANK
+
+\*------------------------------*/
 
 table {
   border-collapse: collapse;
