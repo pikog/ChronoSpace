@@ -4,8 +4,9 @@ $(document).ready(function () {
   //=require game.js
   //=require player.js
   //=require obstacle.js
+  //=require hud.js
+  //=require audio.js
   //=require util.js
   var game = new Game();
   game.init();
-  new Obstacle().init();
 });

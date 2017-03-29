@@ -5,6 +5,7 @@ function Player() {
   this.timeUp = 0.2;
   this.factorTimeDown = 0.002;
   this.hitboxRadius = 70 / 2;
+  this.side = 0;
 }
 
 Player.prototype.up = function () {
@@ -32,6 +33,21 @@ Player.prototype.getY = function () {
   return parseInt(this.player.css("bottom"));
 }
 
+Player.prototype.setX = function (val, speed) {
+  this.player.css("transition", "left " + speed + "s linear");
+  this.player.css("left", val);
+}
+
+Player.prototype.setY = function (val, speed) {
+  this.player.css("transition", "bottom " + speed + "s linear");
+  this.player.css("bottom", val);
+}
+
+Player.prototype.setSkin = function (val) {
+  this.player.css("background-image", "url(../img/space" + val + ".png)");
+  this.side = val;
+}
+
 Player.prototype.checkGameBorder = function () {
   if (this.getY() > 400) {
     this.up();
@@ -55,4 +71,12 @@ Player.prototype.getHitbox = function () {
   hitbox.x = this.getX() + 10 + this.hitboxRadius;
   hitbox.y = this.getY() + 10 + this.hitboxRadius;  
   return hitbox;
+}
+
+Player.prototype.reset = function () {
+  this.rise = null;
+  this.player.css("transition", "none");
+  this.player.css("bottom", 0);
+  this.player.css("left", 60);
+  this.setSkin(0);
 }

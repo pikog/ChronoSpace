@@ -18,10 +18,6 @@ Controller.prototype.init = function () {
       game.player.down();
     }
   });
-  $(document).on('click', function (e) {
-    e.preventDefault();
-    game.player.up();
-  });
 };
 
 Controller.prototype.arrowAlternate = function (key) {
@@ -47,4 +43,10 @@ Controller.prototype.checkChrono = function () {
   } else {
     this.numberOfCheck++;
   }
+}
+
+Controller.prototype.reset = function () {
+  this.lastArrowKey = null;
+  this.chrono = null;
+  this.numberOfCheck = 0;
 }

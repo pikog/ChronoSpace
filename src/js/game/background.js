@@ -56,6 +56,13 @@ Background.prototype.setY = function (layer, val) {
   this.background.css("background-position", result);
 };
 
+Background.prototype.reset = function () {
+  for(var i = 0; i < this.numberLayer; i++) {
+    this.setX(i, 0);
+    this.setY(i, 0);
+  }
+};
+
 
 
 

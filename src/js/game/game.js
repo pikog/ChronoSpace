@@ -3,19 +3,27 @@ function Game() {
   this.background = new Background();
   this.controller = new Controller();
   this.player = new Player();
+  this.hud = new Hud();
+  this.audio = new Audio();
   this.obstaclesContainer = $(".obstacles");
   this.currentObstaclesId = [];
   this.obstacles = [];
+  this.tick;
+  this.goal = 5;
 }
 
 Game.prototype.init = function () {
+  $(".gameOver").fadeOut(200);
   this.controller.init();
   this.ticks();
+  new Obstacle().init();
+  this.hud.init();
+  this.audio.init();
 };
 
 Game.prototype.ticks = function () {
   var actual = this;
-  setInterval(function () {
+  this.tick = setInterval(function () {
       actual.background.scroll(game.speed);
       actual.controller.checkChrono();
       actual.player.checkGameBorder();
@@ -25,6 +33,7 @@ Game.prototype.ticks = function () {
       }
       actual.checkCollision();
       actual.autoGenerateObstacle();
+      actual.hud.timeUpdate();
     },
     10);
 };
@@ -46,6 +55,12 @@ Game.prototype.checkCollision = function () {
     if (distance < obstacleHitbox.radius + playerHitbox.radius) {
       this.obstacles[i].remove();
       new Obstacle().init();
+      this.hud.removeLife();
+      this.audio.explosionSound();
+      if(this.hud.life == 0) {
+        this.gameOver();
+        this.audio.failSound();
+      }
     }
   }
 }
@@ -54,7 +69,56 @@ Game.prototype.autoGenerateObstacle = function () {
   for(var i = 0; i < this.obstacles.length; i++) {
     if(this.obstacles[i].getX() == -150) {
       this.obstacles[i].remove();
-      new Obstacle().init();
+      if(this.hud.addProgression() == this.goal) {
+        this.win();
+      }
+      else {
+        new Obstacle().init();
+      }
     }
   }
+}
+
+Game.prototype.reset = function () {
+  clearInterval(this.tick);
+  $(document).off('keydown');
+  for(var i = 0; i < this.obstacles.length; i++) {
+    this.obstacles[i].remove();
+  }
+  this.speed = 0;
+  this.background.reset();
+  this.controller.reset();
+  this.player.reset();
+  this.hud.reset();
+}
+
+Game.prototype.gameOver = function () {
+  $(".gameOver").fadeIn();
+  setTimeout(function() {
+    game.reset();
+  }, 2000);
+}
+
+Game.prototype.win = function () {
+  clearInterval(this.tick);
+  var actual = this;
+  this.tick = setInterval(function () {
+      actual.background.scroll(game.speed);
+    },
+    10);
+  var result = this.hud.chrono.result();
+  $("p.score").text((result / 1000).toFixed(2) + "s");
+  this.hud.hud.fadeOut();
+  this.audio.winSound();
+  $(document).off('keydown');
+  this.controller.reset();
+  this.speed = 4;
+  this.player.setY(200, 1);
+  setTimeout(function() {
+    actual.speed = 6;
+    actual.player.setX(960, 1.5);
+  }, 1200);
+  setTimeout(function() {
+    game.gameOver();
+  }, 3000);
 }
