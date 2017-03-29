@@ -9,6 +9,8 @@ function Game() {
   this.obstaclesContainer = $(".obstacles");
   this.currentObstaclesId = [];
   this.obstacles = [];
+  this.bulletsContainer = $(".bullets");
+  this.bullets = [];
   this.tick;
   this.goal = 1;
   this.step = 0;

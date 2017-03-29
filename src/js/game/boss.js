@@ -21,5 +21,10 @@ Boss.prototype.move = function () {
     this.boss.css("bottom", posY);
     this.timeEndMove = timeToMove + 2000;
     this.chronoMove.reset();
+    new Bullet().init(this);
   }
+};
+
+Boss.prototype.shoot = function () {
+  
 };

@@ -71,6 +71,26 @@ body {
     background-image: url(../img/obstacle_1.png);
     transition: bottom 0s linear, left 1s linear;
   }
+  .bullets {
+    .bullet {
+      position: absolute;
+      bottom: 0;
+      left: 300px;
+      width: 50px;
+      height: 10px;
+      background: #fff;
+      transition: left 0s linear, right 0s linear;
+      .hitbox {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: red;
+      }
+    }
+  }
   .hud {
     position: absolute;
     top: 0;
