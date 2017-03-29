@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Chrono Space</title>
+  <link rel="stylesheet" type="text/css" href="css/jquery.fullPage.css" />
+  <link rel="stylesheet" type="text/css" href="css/examples.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+</head>
+
+<body>
+
+  <main>
+    <h1 class="logo">
+      <a href="#firstPage"><img src="img/logo.png" alt="ChronoSpace"></a>
+    </h1>
+    <div id="fullpage">
+      <div class="section active" id="section0">
+        <h1>Choisis ton camp</h1>
+        <ul class="side">
+          <li>
+            <a href="#secondPage">
+              <img src="img/logo_empire.png" alt="Empire">
+              <div>Empire galactique</div>
+            </a>
+          </li>
+          <li>
+            <a href="#secondPage">
+              <div>Alliance rebelle</div>
+              <img src="img/logo_rebel.png" alt="Rebel">
+            </a>
+          </li>
+        </ul>
+        <p class="linkPage"><a href="pages/score.html" title="Scores">Scores de la communauté</a></p>
+      </div>
+      <div class="section " id="section1">
+        <h1>GAME</h1>
+      </div>
+      <div class="section " id="section2">
+        <h1>Partagez votre résultat sur Twitter !</h1>
+        <a class="twitter-share-button" href="https://twitter.com/tweet?text=#SWCSVG">
+Tweet</a>
+        <a class="twitter-timeline" href="https://twitter.com/hashtag/SWCSVG" data-widget-id="846876716471586816">Tweets sur #SWCSVG</a>
+        <script>
+          ! function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+              p = /^http:/.test(d.location) ? 'http' : 'https';
+            if (!d.getElementById(id)) {
+              js = d.createElement(s);
+              js.id = id;
+              js.src = p + "://platform.twitter.com/widgets.js";
+              fjs.parentNode.insertBefore(js, fjs);
+            }
+          }(document, "script", "twitter-wjs");
+
+        </script>
+        <p class="suggestion">Ou retrouvez-nous sur les réseaux sociaux :</p>
+        <p class="socialMedia">
+          <a href="#" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i>
+</a>
+          <a href="#" title="Twitter"></a>
+          <a href="#" title="Instagram"></a>
+          <a href="#" title="Google"></a>
+          <a href="#" title="YouTube"></a>
+        </p>
+      </div>
+      <div class="section " id="section3">
+        <div id="titles">
+          <div id="titlecontent">
+
+            <p>ANORGA Baptiste<br>BUREL Pauline<br>CAO VAN TRUONG Alain<br>GRARDEL Pierre<br>LE PAPE Quentin<br>PATEL Jay-min<br>© 2017</p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+  <script type="text/javascript" src="js/scroll.js"></script>
+  <script type="text/javascript" src="js/jquery.fullPage.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#fullpage').fullpage({
+        anchors: ['firstPage', 'secondPage', '3rdPage', '4thpage', 'lastPage'],
+        menu: '#menu',
+        scrollingSpeed: 1000
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>
