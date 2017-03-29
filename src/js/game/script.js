@@ -132,7 +132,7 @@ $(document).ready(function () {
     this.currentObstaclesId = [];
     this.obstacles = [];
     this.tick;
-    this.goal = 5;
+    this.goal = 20;
   }
   
   Game.prototype.init = function () {
