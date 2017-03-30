@@ -162,15 +162,6 @@ a.button-alliance span:after {
   margin: 6px 0 0 9px;
 }
 
-a.button-score {
-  display: block;
-  transition: all linear 0.25s;
-}
-
-a.button-score:hover {
-  text-shadow: 0 0 10px white;
-}
-
 
 /*------------------------------*\
 
@@ -245,21 +236,9 @@ a.button-skip {
 
 \*------------------------------*/
 
-#game {
-  margin-top: 60px;
-}
-
 #game .container {
-  position: relative;
-  height: 60vh;
   text-align: center;
 }
-
-a.button.homepageReturn {
-  position: absolute;
-  bottom: 40px;
-}
-
 
 /*------------------------------*\
 
@@ -285,4 +264,19 @@ a.button.homepageReturn {
   a.button-skip {
     font-size: 14px;
   }
+}
+
+/*------------------------------*\
+
+***** WIN
+
+\*------------------------------*/
+
+a.button-back {
+  display: block;
+  transition: all linear 0.25s;
+}
+
+a.button-back:hover {
+  text-shadow: 0 0 10px white;
 }
