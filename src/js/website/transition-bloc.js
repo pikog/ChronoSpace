@@ -1,3 +1,4 @@
+// Background image div
 $('body').prepend('<div class="bg-image"></div>');
 
 var intervalTime = 1000;
@@ -8,20 +9,25 @@ $('#description').css('display', 'none');
 $('#gameSection').css('display', 'none');
 $('#win').css('display', 'none');
 
+
+// make #homepage displayed
 function homepageAppearance() {
   $('#homepage').removeClass('animated zoomOutUp');
   $('#homepage').fadeIn();
 }
 
+// make #description displayed
 function descriptionAppearance() {
   $('.bg-image').fadeOut();
   $('#description').fadeIn();
 }
 
+// make #description hidden
 function descriptionDisappearance() {
   $('#description').fadeOut();
 }
 
+// make #gameSection displayed
 function gameAppearance() {
   $('.bg-image').fadeIn();
   $('#homepage').css('display', 'none');
@@ -41,7 +47,7 @@ $(document).ready(function () {
     $('p.text-alliance').css('display', 'block');
   });
 
-  // display #description then #game
+  // display #description then #game and play audios
   $('.button-choice').click(function () {
     $('audio#saber')[0].muted = false;
     $('audio#saber')[0].play();

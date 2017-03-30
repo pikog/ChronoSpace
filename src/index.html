@@ -12,12 +12,13 @@
 </head>
 
 <body class="home">
+
   <!--Website logo clickable-->
   <header>
     <div class="container no-bg">
-      <h1 class="logo">
+      <div class="logo">
         <a href="#" class="logo" title="Chrono Space"><img src="img/logo.png" alt="ChronoSpace"></a>
-      </h1>
+      </div>
     </div>
   </header>
 
@@ -46,7 +47,7 @@
           </div>
         </div>
       </div>
-      <a href="#" class="button-skip">Passer la cinématique</a>
+      <a href="#" class="button-skip" title="Passer la cinématique">Passer la cinématique</a>
     </section>
     <!--Game-->
     <section id="gameSection">
@@ -88,7 +89,9 @@
             <div class="time">0s</div>
           </div>
           <div class="gameOver">
-            <a href="#" class="button-play" title="Jouer !">Jouer !</a>
+            <a href="#" class="button-play" title="Jouer !">
+              Jouer !
+            </a>
           </div>
           <div class="audio">
             <audio id="explosion">
@@ -118,9 +121,11 @@
     <script src="js/game/script.js"></script>
     <script src="js/website/transition-bloc.js"></script>
   </main>
+
   <footer>
+    <!--Audio button-->
     <a href="#" class="controlSound" title="Star Wars music"><i class="fa fa-volume-up" aria-hidden="true"></i></a>
-    <audio id="theme" loop="true">
+    <audio id="theme" loop>
       <source src="audio/theme.mp3">
     </audio>
   </footer>

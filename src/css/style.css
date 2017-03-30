@@ -46,6 +46,13 @@ body.home {
   background: none;
 }
 
+audio {
+  display: none;
+}
+
+
+/*Error message if opened with mobile phone or tablet*/
+
 .error {
   font-size: 32px;
   width: 80%;
@@ -53,10 +60,6 @@ body.home {
   margin-top: 50vh;
   transform: translateY(-50%);
   z-index: -1;
-}
-
-audio {
-  display: none;
 }
 
 
@@ -186,6 +189,9 @@ a.button-alliance span:after {
 
 \*------------------------------*/
 
+
+/*Star Wars animation*/
+
 .content-bloc {
   position: absolute;
   width: 18em;
@@ -252,6 +258,9 @@ a.button-skip {
 ***** GAME
 
 \*------------------------------*/
+
+
+/*Instruction*/
 
 #gameSection .container {
   text-align: center;
@@ -344,6 +353,9 @@ div.icon.step2 {
   float: left;
   margin: 0;
 }
+
+
+/*Buttons*/
 
 #game .gameOver {
   position: relative;
