@@ -1,3 +1,5 @@
+$('body').prepend('<div class="bg-image"></div>');
+
 var intervalTime = 1000;
 
 // only #homepage displayed
@@ -11,6 +13,7 @@ function homepageAppearance() {
 }
 
 function descriptionAppearance() {
+  $('.bg-image').fadeOut();
   $('#description').fadeIn();
 }
 
@@ -19,6 +22,7 @@ function descriptionDisappearance() {
 }
 
 function gameAppearance() {
+  $('.bg-image').fadeIn();
   $('#homepage').css('display', 'none');
   $('#game').fadeIn();
 }
@@ -28,6 +32,7 @@ $(document).ready(function () {
   $('.button-empire').click(function () {
     $('p.text-empire').css('display', 'block');
     $('p.text-alliance').css('display', 'none');
+    $('a.button-skip')
   });
 
   // if Alliance is Chosen
@@ -44,8 +49,16 @@ $(document).ready(function () {
     gameVisible = window.setTimeout('gameAppearance()', intervalTime * 12.5);
   });
 
+  $('.button-skip').click(function () {
+    $('#description').fadeOut();
+    $('.bg-image').fadeIn();
+    clearTimeout(gameVisible);
+    window.setTimeout('gameAppearance()', intervalTime);
+  })
+
   // if the logo is clicked then #homepage reappears
   $('a.logo').click(function () {
+    $('.bg-image').fadeIn();
     $('#description').fadeOut();
     $('#game').fadeOut();
     $('#win').fadeOut();

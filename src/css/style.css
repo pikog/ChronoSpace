@@ -6,19 +6,34 @@
 
 body {
   color: white;
-  background: url(../img/bg_site.png) no-repeat center fixed;
   font-family: 'Droid Sans', 'Arial', sans-serif;
-  background-size: cover;
   text-align: center;
   font-size: 14px;
   padding: 0;
   margin: 0;
-  overflow: hidden;
+  background: black;
+}
+
+.bg-image {
+  background: url(../img/bg_site.png) no-repeat center fixed;
+  background-size: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -1;
 }
 
 .container {
   width: 960px;
   margin: 0 auto;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 10px;
+}
+
+.container.no-bg {
+  background: none;
 }
 
 
@@ -30,11 +45,12 @@ body {
 
 header {
   width: 100%;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 header .logo {
   width: 480px;
-  margin: 20px auto 0 auto;
+  margin: 20px auto;
 }
 
 header .logo img {
@@ -164,7 +180,7 @@ a.button-score:hover {
   text-align: center;
   overflow: hidden;
   transform-origin: 50% 100%;
-  transform: perspective(300px) rotateX(25deg);
+  transform: perspective(300px) rotateX(15deg);
 }
 
 .content-bloc:after {
@@ -174,7 +190,6 @@ a.button-score:hover {
   right: 0;
   top: 0;
   bottom: 60%;
-  background-image: linear-gradient(top, rgba(0, 0, 0, 1) 0%, transparent 100%);
   pointer-events: none;
 }
 
@@ -191,6 +206,20 @@ a.button-score:hover {
   100% {
     top: -170%;
   }
+}
+
+.content-text p,
+a.button-skip {
+  color: yellow;
+}
+
+a.button-skip {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  text-transform: uppercase;
+  font-size: 20px;
+  text-decoration: none;
 }
 
 
