@@ -56,6 +56,7 @@ body.home{
 header {
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
+  margin-bottom: 60px;
 }
 
 header .logo {
@@ -93,11 +94,7 @@ footer a.controlSound {
 
 \*------------------------------*/
 
-#homepage {
-  margin-top: 60px;
-}
-
-#homepage h1 {
+h1 {
   text-transform: uppercase;
   font-size: 36px;
   font-family: StarJedi, sans-serif;
