@@ -1,4 +1,8 @@
 $(document).ready(function () {
+  /* 
+  * @param Name of value in URL
+  * @return Value in URL
+  */
   var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
       sURLVariables = sPageURL.split('&'),
@@ -13,19 +17,24 @@ $(document).ready(function () {
       }
     }
   };
-
+  
+  
   var name = getUrlParameter('name');
   var side = parseInt(getUrlParameter('side'));
   var time = parseFloat(getUrlParameter('time'));
-  
+  /* Set name in id card */
   if(name) {
     $("input#pseudo").val(name);
     $(".card .name").text(name);
   }
-  
+  /* Set time in id card */
   if(!isNaN(time)) {
     $(".card .time").text(parseInt(time) + "\"" + time.toString().split(".")[1]);
   }
+  /* 
+  * Set grade, ship, avatar, side in id card 
+  * grade and avatar depends on time
+  */
   if(!isNaN(time) && !isNaN(side)) {
     if(side) {
       $(".card img.side").attr("src", "img/win/empire_logo.png");
@@ -61,9 +70,14 @@ $(document).ready(function () {
         $(".card img.character").attr("src", "img/win/rebel_1.png");
       }
     }
+    /*
+    * Set metadata for sharing on facebook
+    */
     $("meta[property='og:description']").attr("content", "Je suis " + $(".card .grade").text() + " avec " + $(".card .time").text() + " sur Chrono Space ! Etes vous capable de faire mieux ?");
   }
-
+  /*
+  * Set pseudo on id card when input change
+  */
   $("input#pseudo").on('input', function () {
     $(".card .name").text($(this).val());
   });
