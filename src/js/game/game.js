@@ -13,7 +13,7 @@ function Game() {
   this.bulletsContainer = $(".bullets");
   this.bullets = [];
   this.tick;
-  this.goal = 20;
+  this.goal = 10;
   this.step = 0;
 }
 

@@ -4,7 +4,7 @@ function Hud() {
   this.timeElem = $(".hud .time");
   this.goalElem = $(".hud .goal");
   this.chrono;
-  this.life = 3;
+  this.life = 4;
   this.progression = 0;
 }
 

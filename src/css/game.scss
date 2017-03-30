@@ -32,15 +32,6 @@ body {
     left: 60px;
     background: none;
     background-image: url(../img/ship0.png);
-    /*.hitbox {
-      position: absolute;
-      bottom: 15px;
-      left: 15px;
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background: red;
-    }*/
   }
   .obstacles {
     .obstacle {
@@ -51,15 +42,6 @@ body {
       height: 150px;
       background-image: url(../img/obstacle0.png);
       transition: left 2s linear;
-      /*.hitbox {
-        position: absolute;
-        bottom: 10px;
-        left: 10px;
-        width: 130px;
-        height: 130px;
-        border-radius: 50%;
-        background: none;
-      }*/
     }
   }
   .speeders {
@@ -72,15 +54,6 @@ body {
       background-image: url(../img/speeder.png);
       background-size: 50px 50px;
       transition: left 2s linear;
-      /*.hitbox {
-        position: absolute;
-        bottom: 10px;
-        left: 10px;
-        width: 130px;
-        height: 130px;
-        border-radius: 50%;
-        background: none;
-      }*/
     }
   }
   .boss {
@@ -108,7 +81,7 @@ body {
       left: 300px;
       width: 50px;
       height: 10px;
-      background: #fff;
+      background: url(../img/laser0.png) ;
       transition: left 0s linear, right 0s linear;
       .hitbox {
         position: absolute;

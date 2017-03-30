@@ -5,7 +5,7 @@ function Boss() {
   this.dateWhenMove;
   this.timeEndMove;
   this.hitboxRadius = 130 / 2;
-  this.life = 1;
+  this.life = 5;
   this.lifeElem = $(".boss .life");
   this.side = 0;
 }
