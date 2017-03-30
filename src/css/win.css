@@ -1,0 +1,79 @@
+@font-face {
+  font-family: 'sf_fourcheregular';
+  src: url('../fonts/sffourche-webfont.woff2') format('woff2'), url('../fonts/sffourche-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#idcard .container {
+  padding: 0 0 10px 0;
+}
+
+#idcard .pseudo {
+  padding: 20px 0;
+}
+
+#idcard .pseudo input {
+  background: #083A43;
+  text-transform: uppercase;
+  font-size: 25px;
+  font-family: 'sf_fourcheregular', 'Open Sans Condensed', sans-serif;
+  color: #01A7CF;
+  padding: 10px;
+  border: none;
+  border-bottom: #01A7CF solid 2px;
+  border-top: #01A7CF solid 2px;
+  width: 400px;
+}
+
+#idcard .card {
+  position: relative;
+}
+
+#idcard .card .side {
+  position: absolute;
+  top: 114px;
+  left: 105px;
+}
+
+#idcard .card .character {
+  position: absolute;
+  top: 174px;
+  left: 412px;
+}
+
+#idcard .card .ship {
+  position: absolute;
+  top: 82px;
+  left: 778px;
+}
+
+#idcard .card p {
+  text-transform: uppercase;
+  font-size: 25px;
+  font-family: 'sf_fourcheregular', 'Open Sans Condensed', sans-serif;
+  color: #01A7CF;
+  position: absolute;
+}
+
+#idcard .card .time {
+  top: 184px;
+  left: 167px;
+  font-size: 39px;
+  text-transform: none;
+}
+
+#idcard .card .sideText {
+  top: 105px;
+  left: 183px;
+}
+
+#idcard .card .grade {
+  top: 298px;
+  left: 171px;
+}
+
+#idcard .card .name {
+  top: 10px;
+  left: 108px;
+}

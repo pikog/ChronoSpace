@@ -5,10 +5,9 @@
   <meta charset="UTF-8">
   <title>Chrono Space</title>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/win.css" />
   <!--<link rel="stylesheet" type="text/css" href="css/game.css" />-->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 
 <body>
@@ -22,9 +21,23 @@
   </header>
 
   <main>
-    <section id="card">
+    <section id="idcard">
       <div class="container">
-        <img src="" alt="id card">
+        <div class="pseudo">
+          <form action="#" method="get">
+            <input type="text" name="pseudo" id="pseudo" placeholder="Entrez votre nom" autofocus>
+          </form>
+        </div>
+        <div class="card">
+          <img src="img/win/bg.png" class="bg" alt="id card">
+          <img src="img/win/rebel_logo.png" class="side" alt="id card">
+          <img src="img/win/empire_3.png" class="character" alt="id card">
+          <img src="img/ship0.png" class="ship" alt="id card">
+          <p class="sideText">Empire</p>
+          <p class="time">72"42</p>
+          <p class="grade">Vador</p>
+          <p class="name">Coucoudu57</p>
+        </div>
         <a href="index.html" class="button button-back">Revenir au jeu</a>
       </div>
     </section>
