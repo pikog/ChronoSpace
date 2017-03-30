@@ -31,11 +31,11 @@ $(document).ready(function () {
       $(".card img.side").attr("src", "img/win/empire_logo.png");
       $(".card img.ship").attr("src", "img/ship1.png");
       $(".card .sideText").text("Empire");
-      if(time > 2) {
+      if(time > 30) {
         $(".card .grade").text("Trooper");
         $(".card img.character").attr("src", "img/win/empire_3.png");
       }
-      else if(time > 1) {
+      else if(time > 24) {
         $(".card .grade").text("Boba Fett");
         $(".card img.character").attr("src", "img/win/empire_2.png");
       }
@@ -48,11 +48,11 @@ $(document).ready(function () {
       $(".card img.side").attr("src", "img/win/rebel_logo.png");
       $(".card img.ship").attr("src", "img/ship0.png");
       $(".card .sideText").text("Rebel");
-      if(time > 2) {
+      if(time > 30) {
         $(".card .grade").text("C3PO");
         $(".card img.character").attr("src", "img/win/rebel_3.png");
       }
-      else if(time > 1) {
+      else if(time > 24) {
         $(".card .grade").text("Luke");
         $(".card img.character").attr("src", "img/win/rebel_2.png");
       }
@@ -61,6 +61,7 @@ $(document).ready(function () {
         $(".card img.character").attr("src", "img/win/rebel_1.png");
       }
     }
+    $("meta[property='og:description']").attr("content", "Je suis " + $(".card .grade").text() + " Yoda avec " + $(".card .time").text() + " sur Chrono Space ! Etes vous capable de faire mieux ?");
   }
 
   $("input#pseudo").on('input', function () {
