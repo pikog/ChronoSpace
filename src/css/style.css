@@ -345,6 +345,21 @@ div.icon.step2 {
   margin: 0;
 }
 
+#game .gameOver {
+  position: relative;
+}
+
+a.button-play {
+  color: white;
+  text-decoration: none;
+  font-size: 32px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 
 /*------------------------------*\
 

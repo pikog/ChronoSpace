@@ -33,7 +33,6 @@ $(document).ready(function () {
   $('.button-empire').click(function () {
     $('p.text-empire').css('display', 'block');
     $('p.text-alliance').css('display', 'none');
-    $('a.button-skip')
   });
 
   // if Alliance is chosen
