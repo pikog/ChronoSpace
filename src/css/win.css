@@ -79,3 +79,18 @@
   top: 10px;
   left: 108px;
 }
+
+a.share-link {
+  display: inline-block;
+  margin: 10px 0;
+  text-transform: uppercase;
+  font-size:20px;
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+  transition: all linear 0.25s;
+}
+
+a.share-link:hover {
+  text-shadow: 0 0 10px white;
+}
