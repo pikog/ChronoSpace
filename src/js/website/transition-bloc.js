@@ -45,8 +45,8 @@ $(document).ready(function () {
   $('.button-choice').click(function () {
     $('#homepage').addClass('animated zoomOutUp');
     window.setTimeout('descriptionAppearance()', intervalTime);
-    window.setTimeout('descriptionDisappearance()', intervalTime * 10);
-    gameVisible = window.setTimeout('gameAppearance()', intervalTime * 12.5);
+    window.setTimeout('descriptionDisappearance()', intervalTime * 12.5);
+    gameVisible = window.setTimeout('gameAppearance()', intervalTime * 15);
   });
 
   // if the skip button is clicked
