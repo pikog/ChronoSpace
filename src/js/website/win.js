@@ -61,7 +61,7 @@ $(document).ready(function () {
         $(".card img.character").attr("src", "img/win/rebel_1.png");
       }
     }
-    $("meta[property='og:description']").attr("content", "Je suis " + $(".card .grade").text() + " Yoda avec " + $(".card .time").text() + " sur Chrono Space ! Etes vous capable de faire mieux ?");
+    $("meta[property='og:description']").attr("content", "Je suis " + $(".card .grade").text() + " avec " + $(".card .time").text() + " sur Chrono Space ! Etes vous capable de faire mieux ?");
   }
 
   $("input#pseudo").on('input', function () {

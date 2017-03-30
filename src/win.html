@@ -10,11 +10,23 @@
   <meta property="og:url" content="https://pikog.github.io/ChronoSpace/src/win.html" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Chrono Space" />
-  <meta property="og:description" content="Venez jouez à Chrono Space !"/>
+  <meta property="og:description" content="Venez jouez à Chrono Space !" />
   <meta property="og:image" content="https://pikog.github.io/ChronoSpace/src/img/facebook-cover.png" />
 </head>
 
 <body>
+  <div id="fb-root"></div>
+  <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+  </script>
 
   <header>
     <div class="container no-bg">
@@ -42,7 +54,11 @@
           <p class="grade">Vador</p>
           <p class="name"></p>
         </div>
-        <a href="index.html" class="button button-back">Revenir au jeu</a>
+        <div class="share">
+          <div class="fb-share-button" data-href="http://www.your-domain.com/your-page.html" data-layout="button_count">
+          </div>
+        </div>
+        <a href="index.html" class="button button-back">Jouez au jeu !</a>
       </div>
     </section>
 
