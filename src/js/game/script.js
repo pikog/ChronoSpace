@@ -220,6 +220,8 @@ $(document).ready(function () {
     this.obstacles = [];
     $(".bullet").remove();
     this.bullets = [];
+    $(".speeder").remove();
+    this.speeders = [];
     this.speed = 1;
     this.background.reset();
     this.player.reset();
@@ -264,7 +266,6 @@ $(document).ready(function () {
       },
       10);
     var result = (this.hud.chrono.result()/ 1000).toFixed(2);
-    $("p.score").text(result + "s");
     $(".bullet").remove();
     this.hud.hud.fadeOut();
     this.boss.reset();

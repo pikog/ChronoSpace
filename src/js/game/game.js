@@ -130,6 +130,8 @@ Game.prototype.reset = function () {
   this.obstacles = [];
   $(".bullet").remove();
   this.bullets = [];
+  $(".speeder").remove();
+  this.speeders = [];
   this.speed = 1;
   this.background.reset();
   this.player.reset();
@@ -174,7 +176,6 @@ Game.prototype.win = function () {
     },
     10);
   var result = (this.hud.chrono.result()/ 1000).toFixed(2);
-  $("p.score").text(result + "s");
   $(".bullet").remove();
   this.hud.hud.fadeOut();
   this.boss.reset();
