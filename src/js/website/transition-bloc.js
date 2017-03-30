@@ -43,6 +43,8 @@ $(document).ready(function () {
 
   // display #description then #game
   $('.button-choice').click(function () {
+    $('audio#saber')[0].muted = false;
+    $('audio#saber')[0].play();
     $('#homepage').addClass('animated zoomOutUp');
     window.setTimeout('descriptionAppearance()', intervalTime);
     window.setTimeout('descriptionDisappearance()', intervalTime * 12.5);
@@ -51,6 +53,7 @@ $(document).ready(function () {
     if ($('i.fa').hasClass('fa-volume-off')) {
       $('audio#theme')[0].currentTime = 0;
     }
+    $('audio#theme')[0].muted = false;
     $('audio#theme')[0].play();
     $('i.fa').removeClass('fa-volume-off');
     $('i.fa').addClass('fa-volume-up');

@@ -55,6 +55,10 @@ body.home {
   z-index: -1;
 }
 
+audio {
+  display: none;
+}
+
 
 /*------------------------------*\
 
@@ -97,10 +101,6 @@ footer a.controlSound {
 }
 
 a.controlSound {
-  display: none;
-}
-
-audio#theme {
   display: none;
 }
 
