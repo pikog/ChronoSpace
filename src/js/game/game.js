@@ -126,12 +126,10 @@ Game.prototype.autoGenerateSpeeder = function () {
 Game.prototype.reset = function () {
   clearInterval(this.tick);
   $(document).off('keydown');
-  for (var i = 0; i < this.obstacles.length; i++) {
-    this.obstacles[i].remove();
-  }
-  for (var i = 0; i < this.bullets.length; i++) {
-    this.bullets[i].remove();
-  }
+  $(".obstacle").remove();
+  this.obstacles = [];
+  $(".bullet").remove();
+  this.bullets = [];
   this.speed = 1;
   this.background.reset();
   this.player.reset();
@@ -155,6 +153,8 @@ Game.prototype.nextStep = function () {
       actual.hud.timeUpdate();
     },
     10);
+  $(".speeder").remove();
+  this.speeders = [];
   $(document).off('keydown');
   this.speed = 4;
   this.player.setY(200, 1);
@@ -175,10 +175,7 @@ Game.prototype.win = function () {
     10);
   var result = (this.hud.chrono.result()/ 1000).toFixed(2);
   $("p.score").text(result + "s");
-  for (var i = 0; i < this.bullets.length; i++) {
-    this.bullets[i].remove();
-    console.log(this.bullets);
-  }
+  $(".bullet").remove();
   this.hud.hud.fadeOut();
   this.boss.reset();
   this.audio.winSound();

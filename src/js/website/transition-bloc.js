@@ -62,10 +62,17 @@ $(document).ready(function () {
       $('i.fa').removeClass('fa-volume-up');
       $('i.fa').addClass('fa-volume-off');
       $('audio#theme')[0].pause();
+      $('audio').each(function() {
+        this.muted = true;
+      });
+      
     } else {
       $('i.fa').removeClass('fa-volume-off');
       $('i.fa').addClass('fa-volume-up');
       $('audio#theme')[0].play();
+      $('audio').each(function() {
+        this.muted = false;
+      });
     }
   });
 
