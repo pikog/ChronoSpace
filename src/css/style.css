@@ -87,6 +87,14 @@ footer a.controlSound {
   text-decoration: none;
 }
 
+a.controlSound {
+  display: none;
+}
+
+audio#theme {
+  display: none;
+}
+
 
 /*------------------------------*\
 

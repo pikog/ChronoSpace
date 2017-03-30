@@ -47,6 +47,26 @@ $(document).ready(function () {
     window.setTimeout('descriptionAppearance()', intervalTime);
     window.setTimeout('descriptionDisappearance()', intervalTime * 12.5);
     gameVisible = window.setTimeout('gameAppearance()', intervalTime * 15);
+    $('a.controlSound').css('display', 'block');
+    if ($('i.fa').hasClass('fa-volume-off')) {
+      $('audio#theme')[0].currentTime = 0;
+    }
+    $('audio#theme')[0].play();
+    $('i.fa').removeClass('fa-volume-off');
+    $('i.fa').addClass('fa-volume-up');
+  });
+
+  // stop or play music
+  $('a.controlSound').click(function () {
+    if ($('i.fa').hasClass('fa-volume-up')) {
+      $('i.fa').removeClass('fa-volume-up');
+      $('i.fa').addClass('fa-volume-off');
+      $('audio#theme')[0].pause();
+    } else {
+      $('i.fa').removeClass('fa-volume-off');
+      $('i.fa').addClass('fa-volume-up');
+      $('audio#theme')[0].play();
+    }
   });
 
   // if the skip button is clicked
