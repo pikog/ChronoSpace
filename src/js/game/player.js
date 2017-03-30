@@ -1,13 +1,13 @@
 function Player() {
   this.player = $(".player");
-  this.speed = 50;
+  this.speed = 150;
   this.hitboxRadius = 100 / 2;
   this.side = 0;
   this.chronoShoot;
 }
 
 Player.prototype.up = function () {
-  this.player.css("transition", "bottom 300ms cubic-bezier(0.165, 0.84, 0.44, 1)");
+  this.player.css("transition", "bottom 1000ms cubic-bezier(0.165, 0.84, 0.44, 1)");
   if (this.getY() + 100 + this.speed >= 500) {
     this.player.css("bottom", 400);
   } else {
@@ -16,7 +16,7 @@ Player.prototype.up = function () {
 }
 
 Player.prototype.down = function () {
-  this.player.css("transition", "bottom 300ms cubic-bezier(0.165, 0.84, 0.44, 1)");
+  this.player.css("transition", "bottom 1000ms cubic-bezier(0.165, 0.84, 0.44, 1)");
   if (this.getY() - this.speed <= 0) {
     this.player.css("bottom", 0);
   } else {

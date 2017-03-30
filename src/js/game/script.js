@@ -103,7 +103,7 @@ $(document).ready(function () {
     this.bulletsContainer = $(".bullets");
     this.bullets = [];
     this.tick;
-    this.goal = 20;
+    this.goal = 10;
     this.step = 0;
   }
   
@@ -283,14 +283,14 @@ $(document).ready(function () {
   
   function Player() {
     this.player = $(".player");
-    this.speed = 50;
+    this.speed = 150;
     this.hitboxRadius = 100 / 2;
     this.side = 0;
     this.chronoShoot;
   }
   
   Player.prototype.up = function () {
-    this.player.css("transition", "bottom 300ms cubic-bezier(0.165, 0.84, 0.44, 1)");
+    this.player.css("transition", "bottom 1000ms cubic-bezier(0.165, 0.84, 0.44, 1)");
     if (this.getY() + 100 + this.speed >= 500) {
       this.player.css("bottom", 400);
     } else {
@@ -299,7 +299,7 @@ $(document).ready(function () {
   }
   
   Player.prototype.down = function () {
-    this.player.css("transition", "bottom 300ms cubic-bezier(0.165, 0.84, 0.44, 1)");
+    this.player.css("transition", "bottom 1000ms cubic-bezier(0.165, 0.84, 0.44, 1)");
     if (this.getY() - this.speed <= 0) {
       this.player.css("bottom", 0);
     } else {
@@ -451,7 +451,7 @@ $(document).ready(function () {
     this.dateWhenMove;
     this.timeEndMove;
     this.hitboxRadius = 130 / 2;
-    this.life = 1;
+    this.life = 5;
     this.lifeElem = $(".boss .life");
     this.side = 0;
   }
@@ -590,7 +590,7 @@ $(document).ready(function () {
     this.timeElem = $(".hud .time");
     this.goalElem = $(".hud .goal");
     this.chrono;
-    this.life = 3;
+    this.life = 4;
     this.progression = 0;
   }
   
