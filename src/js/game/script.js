@@ -103,7 +103,7 @@ $(document).ready(function () {
     this.bulletsContainer = $(".bullets");
     this.bullets = [];
     this.tick;
-    this.goal = 1; //10
+    this.goal = 10; //10
     this.step = 0;
   }
   
@@ -452,7 +452,7 @@ $(document).ready(function () {
     this.dateWhenMove;
     this.timeEndMove;
     this.hitboxRadius = 130 / 2;
-    this.life = 1; //5
+    this.life = 5; //5
     this.lifeElem = $(".boss .life");
     this.side = 0;
   }
