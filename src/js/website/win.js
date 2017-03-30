@@ -23,8 +23,9 @@ $(document).ready(function () {
   var side = parseInt(getUrlParameter('side'));
   var time = parseFloat(getUrlParameter('time'));
   /* Set name in id card */
-  if(name) {
+  if(name != null && name != "") {
     $("input#pseudo").val(name);
+    $(".pseudo").hide();
     $(".card .name").text(name);
   }
   /* Set time in id card */
