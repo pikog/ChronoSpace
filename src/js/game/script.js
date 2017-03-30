@@ -103,7 +103,7 @@ $(document).ready(function () {
     this.bulletsContainer = $(".bullets");
     this.bullets = [];
     this.tick;
-    this.goal = 5;
+    this.goal = 20;
     this.step = 0;
   }
   
@@ -134,9 +134,13 @@ $(document).ready(function () {
       this.tick = setInterval(function () {
           actual.background.scroll(actual.speed);
           for (var i = 0; i < actual.obstacles.length; i++) {
-            actual.obstacles[i].checkSpeed();
+            actual.obstacles[i].setSpeed(actual.speed);
+          }
+          for (var i = 0; i < actual.speeders.length; i++) {
+            actual.speeders[i].setSpeed(actual.speed);
           }
           actual.checkCollision(actual.player, actual.obstacles);
+          actual.checkCollision(actual.player, actual.speeders);
           actual.autoGenerateObstacle();
           actual.autoGenerateSpeeder();
           actual.hud.timeUpdate();
@@ -162,9 +166,15 @@ $(document).ready(function () {
   
   Game.prototype.collision = function (entity, projectile) {
     if (projectile instanceof Obstacle) {
+      this.speed = 1;
       projectile.remove();
       new Obstacle().init();
       this.hud.removeLife();
+      this.audio.explosionSound();
+    } else if (projectile instanceof Speeder) {
+      this.speed += 0.3;
+      new Speeder().init();
+      projectile.remove();
       this.audio.explosionSound();
     } else if (projectile instanceof Bullet && projectile.shooter instanceof Boss) {
       projectile.remove();
@@ -209,7 +219,7 @@ $(document).ready(function () {
     for (var i = 0; i < this.bullets.length; i++) {
       this.bullets[i].remove();
     }
-    this.speed = 0;
+    this.speed = 1;
     this.background.reset();
     this.player.reset();
     this.hud.reset();
@@ -352,7 +362,6 @@ $(document).ready(function () {
   function Obstacle() {
     this.obstacle;
     this.hitboxRadius = 130 / 2;
-    this.factorSpeed = 1.5;
   }
   
   Obstacle.prototype.init = function (speed) {
@@ -369,7 +378,7 @@ $(document).ready(function () {
   };
   
   Obstacle.prototype.setSpeed = function (speed) {
-    this.obstacle.css("transition", "left " + speed * this.factorSpeed * (this.getX() + 150) + "ms linear");
+    this.obstacle.css("transition", "left " + (this.getX() + 150) / (speed / 2) + "ms linear");
     this.obstacle.css("left", -150 - Math.abs(this.getX() * 0.000001));
   };
   
@@ -379,10 +388,6 @@ $(document).ready(function () {
   
   Obstacle.prototype.getY = function () {
     return parseInt(this.obstacle.css("bottom"));
-  }
-  
-  Obstacle.prototype.checkSpeed = function () {
-    this.setSpeed(game.speed);
   }
   
   Obstacle.prototype.getHitbox = function () {
@@ -397,7 +402,6 @@ $(document).ready(function () {
   function Speeder() {
     this.speeder;
     this.hitboxRadius = 50 / 2;
-    this.factorSpeed = 1.5;
   }
   
   Speeder.prototype.init = function (speed) {
@@ -419,7 +423,7 @@ $(document).ready(function () {
   };
   
   Speeder.prototype.setSpeed = function (speed) {
-    this.speeder.css("transition", "left " + speed * this.factorSpeed * (this.getX() + 50) + "ms linear");
+    this.speeder.css("transition", "left " + (this.getX() + 50) / (speed / 2) + "ms linear");
     this.speeder.css("left", -50 - Math.abs(this.getX() * 0.000001));
   };
   
@@ -429,10 +433,6 @@ $(document).ready(function () {
   
   Speeder.prototype.getY = function () {
     return parseInt(this.speeder.css("bottom"));
-  }
-  
-  Speeder.prototype.checkSpeed = function () {
-    this.setSpeed(game.speed);
   }
   
   Speeder.prototype.getHitbox = function () {
@@ -678,34 +678,6 @@ $(document).ready(function () {
   Chrono.prototype.result = function () {
     var end = new Date();
     return end.getTime() - this.start.getTime();
-  }
-  
-  function calcSpeed(time) {
-    if (time > 2000) {
-      return 0;
-    } else if (time > 1000) {
-      return 2;
-    } else if (time > 500) {
-      return 4;
-    } else if (time > 100) {
-      return 6;
-    } else if (time > 0) {
-      return 10;
-    }
-  }
-  
-  function calcObstacleSpeed(speed) {
-    if (speed == 10) {
-      return 0.0009;
-    } else if (speed == 6) {
-      return 0.0013;
-    } else if (speed == 4) {
-      return 0.0018;
-    } else if (speed == 2) {
-      return 0.0022;
-    } else if (speed == 0) {
-      return 0;
-    }
   }
   
   Array.prototype.remove = function (item) {

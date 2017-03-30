@@ -1,7 +1,6 @@
 function Obstacle() {
   this.obstacle;
   this.hitboxRadius = 130 / 2;
-  this.factorSpeed = 1.5;
 }
 
 Obstacle.prototype.init = function (speed) {
@@ -18,7 +17,7 @@ Obstacle.prototype.remove = function () {
 };
 
 Obstacle.prototype.setSpeed = function (speed) {
-  this.obstacle.css("transition", "left " + speed * this.factorSpeed * (this.getX() + 150) + "ms linear");
+  this.obstacle.css("transition", "left " + (this.getX() + 150) / (speed / 2) + "ms linear");
   this.obstacle.css("left", -150 - Math.abs(this.getX() * 0.000001));
 };
 
@@ -28,10 +27,6 @@ Obstacle.prototype.getX = function () {
 
 Obstacle.prototype.getY = function () {
   return parseInt(this.obstacle.css("bottom"));
-}
-
-Obstacle.prototype.checkSpeed = function () {
-  this.setSpeed(game.speed);
 }
 
 Obstacle.prototype.getHitbox = function () {

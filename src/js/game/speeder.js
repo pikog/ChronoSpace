@@ -1,7 +1,6 @@
 function Speeder() {
   this.speeder;
   this.hitboxRadius = 50 / 2;
-  this.factorSpeed = 1.5;
 }
 
 Speeder.prototype.init = function (speed) {
@@ -23,7 +22,7 @@ Speeder.prototype.remove = function () {
 };
 
 Speeder.prototype.setSpeed = function (speed) {
-  this.speeder.css("transition", "left " + speed * this.factorSpeed * (this.getX() + 50) + "ms linear");
+  this.speeder.css("transition", "left " + (this.getX() + 50) / (speed / 2) + "ms linear");
   this.speeder.css("left", -50 - Math.abs(this.getX() * 0.000001));
 };
 
@@ -33,10 +32,6 @@ Speeder.prototype.getX = function () {
 
 Speeder.prototype.getY = function () {
   return parseInt(this.speeder.css("bottom"));
-}
-
-Speeder.prototype.checkSpeed = function () {
-  this.setSpeed(game.speed);
 }
 
 Speeder.prototype.getHitbox = function () {
