@@ -13,7 +13,7 @@ function Game() {
   this.bulletsContainer = $(".bullets");
   this.bullets = [];
   this.tick;
-  this.goal = 5;
+  this.goal = 20;
   this.step = 0;
 }
 
@@ -44,9 +44,13 @@ Game.prototype.ticks = function () {
     this.tick = setInterval(function () {
         actual.background.scroll(actual.speed);
         for (var i = 0; i < actual.obstacles.length; i++) {
-          actual.obstacles[i].checkSpeed();
+          actual.obstacles[i].setSpeed(actual.speed);
+        }
+        for (var i = 0; i < actual.speeders.length; i++) {
+          actual.speeders[i].setSpeed(actual.speed);
         }
         actual.checkCollision(actual.player, actual.obstacles);
+        actual.checkCollision(actual.player, actual.speeders);
         actual.autoGenerateObstacle();
         actual.autoGenerateSpeeder();
         actual.hud.timeUpdate();
@@ -72,9 +76,15 @@ Game.prototype.checkCollision = function (entity, projectiles) {
 
 Game.prototype.collision = function (entity, projectile) {
   if (projectile instanceof Obstacle) {
+    this.speed = 1;
     projectile.remove();
     new Obstacle().init();
     this.hud.removeLife();
+    this.audio.explosionSound();
+  } else if (projectile instanceof Speeder) {
+    this.speed += 0.3;
+    new Speeder().init();
+    projectile.remove();
     this.audio.explosionSound();
   } else if (projectile instanceof Bullet && projectile.shooter instanceof Boss) {
     projectile.remove();
@@ -119,7 +129,7 @@ Game.prototype.reset = function () {
   for (var i = 0; i < this.bullets.length; i++) {
     this.bullets[i].remove();
   }
-  this.speed = 0;
+  this.speed = 1;
   this.background.reset();
   this.player.reset();
   this.hud.reset();
