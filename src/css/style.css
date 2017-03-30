@@ -46,6 +46,15 @@ body.home {
   background: none;
 }
 
+.error {
+  font-size: 32px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50vh;
+  transform: translateY(-50%);
+  z-index: -1;
+}
+
 
 /*------------------------------*\
 
