@@ -6,10 +6,10 @@ $(document).ready(function () {
   Controller.prototype.init = function () {
     var actual = this;
     $(document).on('keydown', function (e) {
-      if (e.key == "ArrowUp") {
+      if (e.keyCode == 38) {
         e.preventDefault();
         game.player.up();
-      } else if (e.key == "ArrowDown") {
+      } else if (e.keyCode == 40) {
         e.preventDefault();
         game.player.down();
       } else if (e.keyCode == 32 && game.step == 1) {
@@ -103,7 +103,7 @@ $(document).ready(function () {
     this.bulletsContainer = $(".bullets");
     this.bullets = [];
     this.tick;
-    this.goal = 10;
+    this.goal = 1; //10
     this.step = 0;
   }
   
@@ -278,6 +278,7 @@ $(document).ready(function () {
     }, 1200);
     setTimeout(function () {
       game.gameOver();
+      window.location.href = "?time=" + (result / 1000).toFixed(2) + "?side=" + actual.player.side;
     }, 3000);
   }
   
@@ -451,7 +452,7 @@ $(document).ready(function () {
     this.dateWhenMove;
     this.timeEndMove;
     this.hitboxRadius = 130 / 2;
-    this.life = 5;
+    this.life = 1; //5
     this.lifeElem = $(".boss .life");
     this.side = 0;
   }

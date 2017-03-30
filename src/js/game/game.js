@@ -13,7 +13,7 @@ function Game() {
   this.bulletsContainer = $(".bullets");
   this.bullets = [];
   this.tick;
-  this.goal = 10;
+  this.goal = 1; //10
   this.step = 0;
 }
 
@@ -188,5 +188,6 @@ Game.prototype.win = function () {
   }, 1200);
   setTimeout(function () {
     game.gameOver();
+    window.location.href = "?time=" + (result / 1000).toFixed(2) + "?side=" + actual.player.side;
   }, 3000);
 }
