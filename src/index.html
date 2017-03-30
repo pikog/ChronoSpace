@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>Chrono Space</title>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <!--<link rel="stylesheet" type="text/css" href="css/game.css" />-->
+  <link rel="stylesheet" type="text/css" href="css/game.css" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
@@ -47,7 +47,7 @@
       <a href="#" class="button-skip">Passer la cinématique</a>
     </section>
     <!--Game-->
-    <section id="game">
+    <section id="gameSection">
       <div class="container">
         <div class="help-button">
           <div class="step1-withTitle">
@@ -69,14 +69,37 @@
             </div>
           </div>
         </div>
-        <div class="game">
-          GAME BLOC Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed laboriosam officia nostrum incidunt maiores nisi aut necessitatibus porro, aperiam deleniti iste eaque nemo mollitia nihil, beatae, magnam pariatur ab. Cupiditate. GAME BLOC
+        <div id="game">
+          <div class="background"></div>
+          <div class="obstacles"></div>
+          <div class="player"></div>
+          <div class="boss">
+            <div class="life"></div>
+          </div>
+          <div class="bullets"></div>
+          <div class="speeders"></div>
+          <div class="hud">
+            <div class="life"></div>
+            <div class="progressBar">
+              <div class="goal"></div>
+            </div>
+            <div class="time">0s</div>
+          </div>
+          <div class="gameOver">
+            <a href="#" class="button-play">Jouer !</a>
+          </div>
+          <div class="audio">
+            <audio id="explosion">
+              <source src="audio/explosion.mp3"/>
+            </audio>
+            <audio id="fail">
+              <source src="audio/fail.mp3"/>
+            </audio>
+            <audio id="win">
+              <source src="audio/win.mp3"/>
+            </audio>
+          </div>
         </div>
-      </div>
-    </section>
-    <!--Suggestion after winning-->
-    <section id="win">
-      <div class="container">
       </div>
     </section>
 

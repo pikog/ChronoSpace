@@ -13,18 +13,21 @@ function Game() {
   this.bulletsContainer = $(".bullets");
   this.bullets = [];
   this.tick;
-  this.goal = 10; //10
+  this.goal = 10;
   this.step = 0;
+  this.side = 0;
 }
 
-Game.prototype.init = function () {
+Game.prototype.init = function (side) {
+  this.side = side;
+  this.player.setSkin(side);
+  this.boss.setSkin(side);
   $(".gameOver").fadeOut(200);
   this.controller.init();
   this.ticks();
   new Obstacle().init(this.speed);
   new Speeder().init(this.speed);
   this.hud.init();
-  this.audio.init();
 };
 
 Game.prototype.ticks = function () {
@@ -188,6 +191,6 @@ Game.prototype.win = function () {
   }, 1200);
   setTimeout(function () {
     game.gameOver();
-    window.location.href = "win.html?time=" + result + "&side=" + actual.player.side;
+    window.location.href = "win.html?time=" + result + "&side=" + actual.side;
   }, 3000);
 }

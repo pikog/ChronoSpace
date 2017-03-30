@@ -5,9 +5,8 @@ function Boss() {
   this.dateWhenMove;
   this.timeEndMove;
   this.hitboxRadius = 130 / 2;
-  this.life = 5; //5
+  this.life = 5;
   this.lifeElem = $(".boss .life");
-  this.side = 0;
 }
 
 Boss.prototype.init = function () {
@@ -56,7 +55,6 @@ Boss.prototype.shoot = function () {
 
 Boss.prototype.setSkin = function (val) {
   this.boss.css("background-image", "url(img/boss" + val + ".png)");
-  this.side = val;
 }
 
 Boss.prototype.getHitbox = function () {
@@ -78,5 +76,4 @@ Boss.prototype.reset = function () {
   this.boss.css("left", 960);
   this.life = 5;
   this.setLife(5);
-  this.setSkin(0);
 }

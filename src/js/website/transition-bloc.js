@@ -4,7 +4,7 @@ var intervalTime = 1000;
 
 // only #homepage displayed
 $('#description').css('display', 'none');
-$('#game').css('display', 'none');
+$('#gameSection').css('display', 'none');
 $('#win').css('display', 'none');
 
 function homepageAppearance() {
@@ -24,7 +24,7 @@ function descriptionDisappearance() {
 function gameAppearance() {
   $('.bg-image').fadeIn();
   $('#homepage').css('display', 'none');
-  $('#game').fadeIn();
+  $('#gameSection').fadeIn();
 }
 
 $(document).ready(function () {
@@ -81,7 +81,7 @@ $(document).ready(function () {
   $('a.logo').click(function () {
     $('.bg-image').fadeIn();
     $('#description').fadeOut();
-    $('#game').fadeOut();
+    $('#gameSection').fadeOut();
     $('#win').fadeOut();
     clearTimeout(gameVisible);
     window.setTimeout('homepageAppearance()', intervalTime);

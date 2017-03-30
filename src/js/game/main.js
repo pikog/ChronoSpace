@@ -11,5 +11,14 @@ $(document).ready(function () {
   //=require audio.js
   //=require util.js
   var game = new Game();
-  game.init();
+  var side = 0;
+  
+  $("a.button-empire").on('click', function(e) {
+    side = 1;
+  });
+  
+  $("a.button-play").on('click', function(e) {
+    e.preventDefault();
+    game.init(side);
+  });
 });

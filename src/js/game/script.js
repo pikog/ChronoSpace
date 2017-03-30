@@ -103,18 +103,21 @@ $(document).ready(function () {
     this.bulletsContainer = $(".bullets");
     this.bullets = [];
     this.tick;
-    this.goal = 10; //10
+    this.goal = 10;
     this.step = 0;
+    this.side = 0;
   }
   
-  Game.prototype.init = function () {
+  Game.prototype.init = function (side) {
+    this.side = side;
+    this.player.setSkin(side);
+    this.boss.setSkin(side);
     $(".gameOver").fadeOut(200);
     this.controller.init();
     this.ticks();
     new Obstacle().init(this.speed);
     new Speeder().init(this.speed);
     this.hud.init();
-    this.audio.init();
   };
   
   Game.prototype.ticks = function () {
@@ -278,7 +281,7 @@ $(document).ready(function () {
     }, 1200);
     setTimeout(function () {
       game.gameOver();
-      window.location.href = "win.html?time=" + result + "&side=" + actual.player.side;
+      window.location.href = "win.html?time=" + result + "&side=" + actual.side;
     }, 3000);
   }
   
@@ -286,7 +289,6 @@ $(document).ready(function () {
     this.player = $(".player");
     this.speed = 150;
     this.hitboxRadius = 100 / 2;
-    this.side = 0;
     this.chronoShoot;
   }
   
@@ -328,7 +330,6 @@ $(document).ready(function () {
   
   Player.prototype.setSkin = function (val) {
     this.player.css("background-image", "url(img/ship" + val + ".png)");
-    this.side = val;
   }
   
   Player.prototype.getHitbox = function () {
@@ -357,7 +358,6 @@ $(document).ready(function () {
     this.player.css("transition", "none");
     this.player.css("bottom", 200);
     this.player.css("left", 60);
-    this.setSkin(0);
   }
   
   function Obstacle() {
@@ -452,9 +452,8 @@ $(document).ready(function () {
     this.dateWhenMove;
     this.timeEndMove;
     this.hitboxRadius = 130 / 2;
-    this.life = 5; //5
+    this.life = 5;
     this.lifeElem = $(".boss .life");
-    this.side = 0;
   }
   
   Boss.prototype.init = function () {
@@ -503,7 +502,6 @@ $(document).ready(function () {
   
   Boss.prototype.setSkin = function (val) {
     this.boss.css("background-image", "url(img/boss" + val + ".png)");
-    this.side = val;
   }
   
   Boss.prototype.getHitbox = function () {
@@ -525,7 +523,6 @@ $(document).ready(function () {
     this.boss.css("left", 960);
     this.life = 5;
     this.setLife(5);
-    this.setSkin(0);
   }
   
   function Bullet() {
@@ -541,9 +538,11 @@ $(document).ready(function () {
     if (entity instanceof Player) {
       this.bullet.css("left", x);
       this.bullet.css("bottom", y);
+      this.bullet.css("background-image", "url(img/laser0.png)");
     } else {
       this.bullet.css("left", x - 35);
       this.bullet.css("bottom", y);
+      this.bullet.css("background-image", "url(img/laser1.png)");
     }
     game.bullets.push(this);
   };
@@ -639,18 +638,11 @@ $(document).ready(function () {
   };
   
   function Audio() {
-    this.theme = $("audio#theme")[0];
     this.explosion = $("audio#explosion")[0];
     this.fail = $("audio#fail")[0];
     this.win = $("audio#win")[0];
+    
   }
-  
-  Audio.prototype.init = function () {
-    if(this.theme.paused) {
-      this.theme.currentTime = 0;
-      this.theme.play();
-    }
-  };
   
   Audio.prototype.explosionSound = function () {
     this.explosion.currentTime = 0;
@@ -689,5 +681,14 @@ $(document).ready(function () {
   }
   
   var game = new Game();
-  game.init();
+  var side = 0;
+  
+  $("a.button-empire").on('click', function(e) {
+    side = 1;
+  });
+  
+  $("a.button-play").on('click', function(e) {
+    e.preventDefault();
+    game.init(side);
+  });
 });

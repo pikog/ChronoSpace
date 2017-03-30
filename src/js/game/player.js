@@ -2,7 +2,6 @@ function Player() {
   this.player = $(".player");
   this.speed = 150;
   this.hitboxRadius = 100 / 2;
-  this.side = 0;
   this.chronoShoot;
 }
 
@@ -44,7 +43,6 @@ Player.prototype.setY = function (val, speed) {
 
 Player.prototype.setSkin = function (val) {
   this.player.css("background-image", "url(img/ship" + val + ".png)");
-  this.side = val;
 }
 
 Player.prototype.getHitbox = function () {
@@ -73,5 +71,4 @@ Player.prototype.reset = function () {
   this.player.css("transition", "none");
   this.player.css("bottom", 200);
   this.player.css("left", 60);
-  this.setSkin(0);
 }

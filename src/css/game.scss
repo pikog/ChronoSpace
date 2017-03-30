@@ -1,17 +1,5 @@
-body {
-  margin: 0;
-  padding: 50px 0 0 0;
-  font-family: 'Droid Sans', 'Open Sans', 'Arial', sans-serif;
-  font-size: 11px;
-  background-color: #34495E;
-}
-
-.container {
-  width: 960px;
-  margin: 0 auto;
-}
-
 #game {
+  font-size: 11px;
   position: relative;
   width: 100%;
   height: 500px;
@@ -81,7 +69,7 @@ body {
       left: 300px;
       width: 50px;
       height: 10px;
-      background: url(../img/laser0.png) ;
+      background: url(../img/laser0.png);
       transition: left 0s linear, right 0s linear;
       .hitbox {
         position: absolute;
@@ -134,7 +122,7 @@ body {
     }
   }
   .gameOver {
-    display: none;
+    display: block;
     width: 100%;
     height: 100%;
     background: #000;

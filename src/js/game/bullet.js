@@ -11,9 +11,11 @@ Bullet.prototype.init = function (entity, x, y) {
   if (entity instanceof Player) {
     this.bullet.css("left", x);
     this.bullet.css("bottom", y);
+    this.bullet.css("background-image", "url(img/laser0.png)");
   } else {
     this.bullet.css("left", x - 35);
     this.bullet.css("bottom", y);
+    this.bullet.css("background-image", "url(img/laser1.png)");
   }
   game.bullets.push(this);
 };
