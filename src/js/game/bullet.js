@@ -33,6 +33,7 @@ Bullet.prototype.move = function () {
     this.bullet.css("transition-duration", this.speed * (this.getX() + 50) + "s");
     this.bullet.css("left", -50);
   }
+  game.audio.shootSound();
 };
 
 Bullet.prototype.getX = function () {

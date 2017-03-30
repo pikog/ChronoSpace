@@ -178,7 +178,7 @@ $(document).ready(function () {
       this.speed += 0.3;
       new Speeder().init();
       projectile.remove();
-      this.audio.explosionSound();
+      this.audio.bonusSound();
     } else if (projectile instanceof Bullet && projectile.shooter instanceof Boss) {
       projectile.remove();
       this.hud.removeLife();
@@ -560,6 +560,7 @@ $(document).ready(function () {
       this.bullet.css("transition-duration", this.speed * (this.getX() + 50) + "s");
       this.bullet.css("left", -50);
     }
+    game.audio.shootSound();
   };
   
   Bullet.prototype.getX = function () {
@@ -641,6 +642,8 @@ $(document).ready(function () {
     this.explosion = $("audio#explosion")[0];
     this.fail = $("audio#fail")[0];
     this.win = $("audio#win")[0];
+    this.tir = $("audio#tir")[0];
+    this.bonus = $("audio#bonus")[0];
     
   }
   
@@ -650,15 +653,23 @@ $(document).ready(function () {
   };
   
   Audio.prototype.winSound = function () {
-    this.theme.pause();
     this.win.currentTime = 0;
     this.win.play();
   };
   
   Audio.prototype.failSound = function () {
-    this.theme.pause();
     this.fail.currentTime = 0;
     this.fail.play();
+  };
+  
+  Audio.prototype.shootSound = function () {
+    this.tir.currentTime = 0;
+    this.tir.play();
+  };
+  
+  Audio.prototype.bonusSound = function () {
+    this.bonus.currentTime = 0;
+    this.bonus.play();
   };
   function Chrono() {
     this.start = new Date();

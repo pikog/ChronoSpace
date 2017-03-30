@@ -88,7 +88,7 @@ Game.prototype.collision = function (entity, projectile) {
     this.speed += 0.3;
     new Speeder().init();
     projectile.remove();
-    this.audio.explosionSound();
+    this.audio.bonusSound();
   } else if (projectile instanceof Bullet && projectile.shooter instanceof Boss) {
     projectile.remove();
     this.hud.removeLife();
