@@ -8,6 +8,8 @@ function Game() {
   this.boss = new Boss();
   this.obstaclesContainer = $(".obstacles");
   this.obstacles = [];
+  this.speedersContainer = $(".speeders");
+  this.speeders = [];
   this.bulletsContainer = $(".bullets");
   this.bullets = [];
   this.tick;
@@ -20,6 +22,7 @@ Game.prototype.init = function () {
   this.controller.init();
   this.ticks();
   new Obstacle().init(this.speed);
+  new Speeder().init(this.speed);
   this.hud.init();
   this.audio.init();
 };
@@ -45,6 +48,7 @@ Game.prototype.ticks = function () {
         }
         actual.checkCollision(actual.player, actual.obstacles);
         actual.autoGenerateObstacle();
+        actual.autoGenerateSpeeder();
         actual.hud.timeUpdate();
       },
       10);
@@ -90,11 +94,21 @@ Game.prototype.autoGenerateObstacle = function () {
       if (this.hud.addProgression() == this.goal) {
         this.nextStep();
       } else {
-        new Obstacle().init();
+        new Obstacle().init(this.speed);
       }
     }
   }
 }
+
+Game.prototype.autoGenerateSpeeder = function () {
+  for (var i = 0; i < this.speeders.length; i++) {
+    if (this.speeders[i].getX() == -50) {
+      this.speeders[i].remove();
+      new Speeder().init(this.speed);
+    }
+  }
+}
+
 
 Game.prototype.reset = function () {
   clearInterval(this.tick);

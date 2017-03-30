@@ -4,6 +4,7 @@ $(document).ready(function () {
   //=require game.js
   //=require player.js
   //=require obstacle.js
+  //=require speeder.js
   //=require boss.js
   //=require bullet.js
   //=require hud.js
