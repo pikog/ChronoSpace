@@ -70,8 +70,9 @@
 }
 
 #idcard .card .grade {
-  top: 298px;
+  top: 303px;
   left: 171px;
+  font-size: 22px;
 }
 
 #idcard .card .name {

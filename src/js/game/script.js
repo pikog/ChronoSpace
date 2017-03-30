@@ -278,7 +278,7 @@ $(document).ready(function () {
     }, 1200);
     setTimeout(function () {
       game.gameOver();
-      window.location.href = "win.html?time=" + parseInt(result) + "\"" + result.toString().split(".")[1] + "&side=" + actual.player.side;
+      window.location.href = "win.html?time=" + result + "&side=" + actual.player.side;
     }, 3000);
   }
   
