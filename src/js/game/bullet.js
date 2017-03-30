@@ -7,16 +7,15 @@ function Bullet() {
 
 Bullet.prototype.init = function (entity, x, y) {
   this.bullet = $('<div class="bullet"></div>').appendTo(game.bulletsContainer);
-  game.bullets.push(this);
   this.shooter = entity;
-  if(entity instanceof Player) {
+  if (entity instanceof Player) {
     this.bullet.css("left", x);
     this.bullet.css("bottom", y);
-  }
-  else {
+  } else {
     this.bullet.css("left", x - 35);
     this.bullet.css("bottom", y);
   }
+  game.bullets.push(this);
 };
 
 Bullet.prototype.remove = function () {
@@ -25,11 +24,10 @@ Bullet.prototype.remove = function () {
 };
 
 Bullet.prototype.move = function () {
-  if(this.shooter instanceof Player) {
+  if (this.shooter instanceof Player) {
     this.bullet.css("transition-duration", this.speed * (960 - this.getX()) + "s");
     this.bullet.css("left", 960);
-  }
-  else {
+  } else {
     this.bullet.css("transition-duration", this.speed * (this.getX() + 50) + "s");
     this.bullet.css("left", -50);
   }
@@ -44,12 +42,13 @@ Bullet.prototype.getY = function () {
 }
 
 Bullet.prototype.getHitbox = function () {
-  var hitbox = {radius: this.hitboxRadius};
-  if(this.shooter instanceof Player) {
-    hitbox.x = this.getX() + 40 +  this.hitboxRadius;
+  var hitbox = {
+    radius: this.hitboxRadius
+  };
+  if (this.shooter instanceof Player) {
+    hitbox.x = this.getX() + 40 + this.hitboxRadius;
     hitbox.y = this.getY() + this.hitboxRadius;
-  }
-  else {
+  } else {
     hitbox.x = this.getX() + this.hitboxRadius;
     hitbox.y = this.getY() + this.hitboxRadius;
   }

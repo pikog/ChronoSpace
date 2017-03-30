@@ -1,5 +1,5 @@
 function Game() {
-  this.speed = 0;
+  this.speed = 1;
   this.background = new Background();
   this.controller = new Controller();
   this.player = new Player();
@@ -7,12 +7,11 @@ function Game() {
   this.audio = new Audio();
   this.boss = new Boss();
   this.obstaclesContainer = $(".obstacles");
-  this.currentObstaclesId = [];
   this.obstacles = [];
   this.bulletsContainer = $(".bullets");
   this.bullets = [];
   this.tick;
-  this.goal = 1;
+  this.goal = 5;
   this.step = 0;
 }
 
@@ -20,7 +19,7 @@ Game.prototype.init = function () {
   $(".gameOver").fadeOut(200);
   this.controller.init();
   this.ticks();
-  new Obstacle().init();
+  new Obstacle().init(this.speed);
   this.hud.init();
   this.audio.init();
 };
@@ -32,8 +31,6 @@ Game.prototype.ticks = function () {
     this.tick = setInterval(function () {
         actual.background.scroll(actual.speed);
         actual.hud.timeUpdate();
-        actual.player.checkGameBorder();
-        actual.player.autoDown();
         actual.boss.move();
         actual.boss.shoot();
         actual.checkCollision(actual.player, actual.bullets);
@@ -43,9 +40,6 @@ Game.prototype.ticks = function () {
   } else {
     this.tick = setInterval(function () {
         actual.background.scroll(actual.speed);
-        actual.controller.checkChrono();
-        actual.player.checkGameBorder();
-        actual.player.autoDown();
         for (var i = 0; i < actual.obstacles.length; i++) {
           actual.obstacles[i].checkSpeed();
         }
@@ -55,11 +49,6 @@ Game.prototype.ticks = function () {
       },
       10);
   }
-};
-
-Game.prototype.giveObstacleId = function () {
-  for (var i = 0; this.currentObstaclesId.indexOf(i) != -1; i++);
-  return i;
 };
 
 Game.prototype.checkCollision = function (entity, projectiles) {
@@ -113,11 +102,15 @@ Game.prototype.reset = function () {
   for (var i = 0; i < this.obstacles.length; i++) {
     this.obstacles[i].remove();
   }
+  for (var i = 0; i < this.bullets.length; i++) {
+    this.bullets[i].remove();
+  }
   this.speed = 0;
   this.background.reset();
-  this.controller.reset();
   this.player.reset();
   this.hud.reset();
+  this.boss.reset();
+  this.step = 0;
 }
 
 Game.prototype.gameOver = function () {
@@ -155,10 +148,14 @@ Game.prototype.win = function () {
     10);
   var result = this.hud.chrono.result();
   $("p.score").text((result / 1000).toFixed(2) + "s");
+  for (var i = 0; i < this.bullets.length; i++) {
+    this.bullets[i].remove();
+    console.log(this.bullets);
+  }
   this.hud.hud.fadeOut();
+  this.boss.reset();
   this.audio.winSound();
   $(document).off('keydown');
-  this.controller.reset();
   this.speed = 4;
   this.player.setY(200, 1);
   setTimeout(function () {

@@ -7,6 +7,7 @@ function Audio() {
 
 Audio.prototype.init = function () {
   if(this.theme.paused) {
+    this.theme.currentTime = 0;
     this.theme.play();
   }
 };

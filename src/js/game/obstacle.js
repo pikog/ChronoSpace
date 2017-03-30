@@ -1,33 +1,25 @@
 function Obstacle() {
-  this.id;
   this.obstacle;
   this.hitboxRadius = 130 / 2;
+  this.factorSpeed = 1.5;
 }
 
-Obstacle.prototype.init = function () {
-  this.id = game.giveObstacleId();
-  game.currentObstaclesId.push(this.id);
-  game.obstaclesContainer.append('<div class="obstacle" id="obstacle-' + this.id + '"></div>');
-  this.obstacle = $('#obstacle-' + this.id);
+Obstacle.prototype.init = function (speed) {
+  this.obstacle = $('<div class="obstacle"></div>').appendTo(game.obstaclesContainer);
   game.obstacles.push(this);
   this.obstacle.css("bottom", (Math.floor(Math.random() * 3)) * 165);
-  this.obstacle.css("background-image", "url(img/obstacle" + Math.floor(Math.random()*2) + ".png)");
+  this.obstacle.css("background-image", "url(img/obstacle" + Math.floor(Math.random() * 2) + ".png)");
+  this.setSpeed(speed);
 };
 
 Obstacle.prototype.remove = function () {
-  game.currentObstaclesId.remove(this.id);
   game.obstacles.remove(this);
   this.obstacle.remove();
 };
 
 Obstacle.prototype.setSpeed = function (speed) {
-  if(speed == 0) {
-    this.obstacle.css("left", this.getX());
-  }
-  else {
-    this.obstacle.css("transition-duration", speed * (this.getX() + 150) + "s");
-    this.obstacle.css("left", - 150 - Math.abs(this.getX()*0.000001));
-  }
+  this.obstacle.css("transition", "left " + speed * this.factorSpeed * (this.getX() + 150) + "ms linear");
+  this.obstacle.css("left", -150 - Math.abs(this.getX() * 0.000001));
 };
 
 Obstacle.prototype.getX = function () {
@@ -39,12 +31,14 @@ Obstacle.prototype.getY = function () {
 }
 
 Obstacle.prototype.checkSpeed = function () {
-  this.setSpeed(calcObstacleSpeed(game.speed));
+  this.setSpeed(game.speed);
 }
 
 Obstacle.prototype.getHitbox = function () {
-  var hitbox = {radius: this.hitboxRadius};
+  var hitbox = {
+    radius: this.hitboxRadius
+  };
   hitbox.x = this.getX() + 10 + this.hitboxRadius;
-  hitbox.y = this.getY() + 10 + this.hitboxRadius;  
+  hitbox.y = this.getY() + 10 + this.hitboxRadius;
   return hitbox;
 }

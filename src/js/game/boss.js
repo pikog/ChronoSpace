@@ -1,16 +1,17 @@
 function Boss() {
-  this.boss;
+  this.boss = $(".boss");
   this.chronoMove;
   this.chronoShoot;
   this.dateWhenMove;
   this.timeEndMove;
   this.hitboxRadius = 130 / 2;
-  this.life = 5;
+  this.life = 1;
   this.lifeElem = $(".boss .life");
+  this.side = 0;
 }
 
 Boss.prototype.init = function () {
-  this.boss = $(".boss");
+  this.boss.css("transition", "bottom 0s linear, left 1s linear");
   this.boss.css("left", 750);
   this.setLife(this.life);
 };
@@ -42,7 +43,7 @@ Boss.prototype.move = function () {
 };
 
 Boss.prototype.shoot = function () {
-  if (this.chronoShoot == null || this.chronoShoot.result() >= 700) {
+  if (this.chronoShoot == null || this.chronoShoot.result() >= 1200) {
     if (this.chronoShoot == null) {
       this.chronoShoot = new Chrono();
     }
@@ -53,6 +54,11 @@ Boss.prototype.shoot = function () {
   }
 };
 
+Boss.prototype.setSkin = function (val) {
+  this.boss.css("background-image", "url(img/boss" + val + ".png)");
+  this.side = val;
+}
+
 Boss.prototype.getHitbox = function () {
   var hitbox = {
     radius: this.hitboxRadius
@@ -60,4 +66,17 @@ Boss.prototype.getHitbox = function () {
   hitbox.x = parseInt(this.boss.css("left")) + 10 + this.hitboxRadius;
   hitbox.y = parseInt(this.boss.css("bottom")) + 10 + this.hitboxRadius;
   return hitbox;
+}
+
+Boss.prototype.reset = function () {
+  this.chronoMove = null;
+  this.chronoShoot = null;
+  this.dateWhenMove = null;
+  this.timeEndMove = null;
+  this.boss.css("transition", "none");
+  this.boss.css("bottom", 175);
+  this.boss.css("left", 960);
+  this.life = 5;
+  this.setLife(5);
+  this.setSkin(0);
 }

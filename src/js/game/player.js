@@ -1,29 +1,27 @@
 function Player() {
   this.player = $(".player");
-  this.rise;
-  this.speedUp = 100;
-  this.timeUp = 0.2;
-  this.factorTimeDown = 0.002;
+  this.speed = 50;
   this.hitboxRadius = 100 / 2;
   this.side = 0;
   this.chronoShoot;
 }
 
 Player.prototype.up = function () {
-  if (this.getY() + this.speedUp >= 500) {
-    this.player.css("transition", "bottom " + this.timeUp + "s cubic-bezier(0.25, 0.46, 0.45, 0.94)");
+  this.player.css("transition", "bottom 300ms cubic-bezier(0.165, 0.84, 0.44, 1)");
+  if (this.getY() + 100 + this.speed >= 500) {
     this.player.css("bottom", 400);
   } else {
-    this.player.css("transition", "bottom " + this.timeUp + "s cubic-bezier(0.25, 0.46, 0.45, 0.94)");
-    this.player.css("bottom", this.getY() + this.speedUp);
+    this.player.css("bottom", this.getY() + this.speed);
   }
-  this.rise = new Chrono();
 }
 
 Player.prototype.down = function () {
-  this.player.css("transition", "bottom " + this.factorTimeDown * this.getY() + "s cubic-bezier(.57,.56,.69,.99)");
-  this.player.css("bottom", 0);
-  this.rise = null;
+  this.player.css("transition", "bottom 300ms cubic-bezier(0.165, 0.84, 0.44, 1)");
+  if (this.getY() - this.speed <= 0) {
+    this.player.css("bottom", 0);
+  } else {
+    this.player.css("bottom", this.getY() - this.speed);
+  }
 }
 
 Player.prototype.getX = function () {
@@ -49,24 +47,6 @@ Player.prototype.setSkin = function (val) {
   this.side = val;
 }
 
-Player.prototype.checkGameBorder = function () {
-  if (this.getY() > 400) {
-    this.up();
-  } else if (this.getY() < 0) {
-    this.down();
-  }
-}
-
-Player.prototype.autoDown = function () {
-  if (this.rise) {
-    if (this.rise.result() > 200) {
-      this.down();
-    }
-  } else {
-    this.down();
-  }
-}
-
 Player.prototype.getHitbox = function () {
   var hitbox = {
     radius: this.hitboxRadius
@@ -89,9 +69,9 @@ Player.prototype.shoot = function () {
 };
 
 Player.prototype.reset = function () {
-  this.rise = null;
+  this.chronoShoot = null;
   this.player.css("transition", "none");
-  this.player.css("bottom", 0);
+  this.player.css("bottom", 200);
   this.player.css("left", 60);
   this.setSkin(0);
 }
