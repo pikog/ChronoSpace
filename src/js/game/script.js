@@ -260,8 +260,8 @@ $(document).ready(function () {
         actual.background.scroll(actual.speed);
       },
       10);
-    var result = this.hud.chrono.result();
-    $("p.score").text((result / 1000).toFixed(2) + "s");
+    var result = (this.hud.chrono.result()/ 1000).toFixed(2);
+    $("p.score").text(result + "s");
     for (var i = 0; i < this.bullets.length; i++) {
       this.bullets[i].remove();
       console.log(this.bullets);
@@ -278,7 +278,7 @@ $(document).ready(function () {
     }, 1200);
     setTimeout(function () {
       game.gameOver();
-      window.location.href = "win.html?time=" + (result / 1000).toFixed(2) + "?side=" + actual.player.side;
+      window.location.href = "win.html?time=" + parseInt(result) + "\"" + result.toString().split(".")[1] + "&side=" + actual.player.side;
     }, 3000);
   }
   
