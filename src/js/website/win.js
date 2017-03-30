@@ -80,5 +80,28 @@ $(document).ready(function () {
   */
   $("input#pseudo").on('input', function () {
     $(".card .name").text($(this).val());
+    setClipboardButton();
   });
+  
+  /*
+  * Avoid submit form
+  */
+  $('form').submit(function(e) {
+    e.preventDefault();
+  });
+  
+  /*
+  * Set share link
+  */
+  var clipboard = new Clipboard('a.share-link');
+  function setClipboardButton() {
+    $('a.share-link').attr("data-clipboard-text", "https://pikog.github.io/ChronoSpace/src/win.html?time=" + time + "&side=" + side + "&name=" + $(".card .name").text());
+  }
+  clipboard.on('success', function(e) {
+    $('a.share-link').text("Lien copié dans votre presse papier");
+    setTimeout(function() {
+      $('a.share-link').text("Obtenir votre lien de partage");
+    }, 3000);
+  });
+  setClipboardButton();
 });

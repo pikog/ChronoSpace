@@ -21,4 +21,8 @@ $(document).ready(function () {
     e.preventDefault();
     game.init(side);
   });
+  $("a.button-return").on('click', function(e) {
+    e.preventDefault();
+    game.gameOver();
+  });
 });
