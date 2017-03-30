@@ -255,7 +255,7 @@ a.button-skip {
 
 #gameSection .container {
   text-align: center;
-  padding: 5px 0 0 0;
+  padding: 5px 0 5px 0;
   margin-top: -70px;
 }
 
@@ -358,6 +358,26 @@ a.button-play {
   transform: translateY(-50%);
   left: 50%;
   transform: translateX(-50%);
+  transition: all linear 0.5s;
+}
+
+a.button-play:hover {
+  text-shadow: 0 0 10px white;
+}
+
+.homepageReturn {
+  margin-top: 5px;
+}
+
+.button-return {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all linear 0.5s;
+}
+
+.button-return:hover {
+  text-shadow: 0 0 10px white;
 }
 
 

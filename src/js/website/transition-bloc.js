@@ -97,10 +97,15 @@ $(document).ready(function () {
     $('.bg-image').fadeIn();
     $('#description').fadeOut();
     $('#gameSection').fadeOut();
-    $('#win').fadeOut();
     clearTimeout(gameVisible);
     window.setTimeout('homepageAppearance()', intervalTime);
     descriptionSkipped = false;
+  });
+
+  // return to menu button
+  $('.homepageReturn a.button-return').click(function () {
+    $('#gameSection').fadeOut();
+    window.setTimeout('homepageAppearance()', intervalTime);
   });
 });
 
@@ -131,5 +136,5 @@ if (isMobile.any()) {
   $('.bg-image').css('display', 'none');
   $('header').css('display', 'none');
   $('main').css('display', 'none');
-  $('body').prepend('<div class="error"><div class="message">Ce jeu ne fonction pas sur mobile ou tablette !</div></div>');
+  $('body').prepend('<div class="error"><div class="message">Ce jeu ne fonctionne pas sur mobile ou tablette !</div></div>');
 }
