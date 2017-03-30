@@ -232,9 +232,7 @@ $(document).ready(function () {
   
   Game.prototype.gameOver = function () {
     $(".gameOver").fadeIn();
-    setTimeout(function () {
-      game.reset();
-    }, 2000);
+    game.reset();
   }
   
   Game.prototype.nextStep = function () {
