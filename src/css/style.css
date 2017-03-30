@@ -1,3 +1,9 @@
+@font-face {
+  font-family: StarJedi;
+  src: url(../fonts/Starjedi.ttf);
+}
+
+
 /*------------------------------*\
 
 ***** BODY
@@ -6,7 +12,7 @@
 
 body {
   color: white;
-  font-family: 'Droid Sans', 'Arial', sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
   text-align: center;
   font-size: 14px;
   padding: 0;
@@ -89,6 +95,9 @@ footer a.controlSound {
 #homepage h1 {
   text-transform: uppercase;
   font-size: 36px;
+  font-family: StarJedi, sans-serif;
+  letter-spacing: 2.5px;
+  text-transform: lowercase;
 }
 
 a.button {
@@ -126,7 +135,7 @@ a.button-empire span:before {
   width: 20px;
   height: 20px;
   float: left;
-  margin: 3px 9px 0 0;
+  margin: 6px 9px 0 0;
 }
 
 a.button-alliance {
@@ -148,7 +157,7 @@ a.button-alliance span:after {
   width: 20px;
   height: 20px;
   float: right;
-  margin: 3px 0 0 9px;
+  margin: 6px 0 0 9px;
 }
 
 a.button-score {
@@ -207,6 +216,12 @@ a.button-score:hover {
   }
 }
 
+.content-text p {
+  font-family: StarJedi, sans-serif;
+  letter-spacing: 2.5px;
+  text-transform: lowercase;
+}
+
 .content-text p,
 a.button-skip {
   color: yellow;
@@ -241,58 +256,6 @@ a.button-skip {
 a.button.homepageReturn {
   position: absolute;
   bottom: 40px;
-}
-
-
-/*------------------------------*\
-
-***** SUCCESS
-
-\*------------------------------*/
-
-
-/*------------------------------*\
-
-***** RANK
-
-\*------------------------------*/
-
-#rank {
-  margin-top: 5vh;
-}
-
-#rank h1 {
-  text-transform: uppercase;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-
-th {
-  text-transform: uppercase;
-}
-
-table,
-th,
-td {
-  border: 2.5px solid white;
-  padding: 5px;
-}
-
-a.button-homepage {
-  font-size: 16px;
-  text-decoration: none;
-  border: none;
-  transition: all linear 0.25s;
-}
-
-a.button-homepage:hover {
-  text-shadow: 0 0 10px white;
 }
 
 
