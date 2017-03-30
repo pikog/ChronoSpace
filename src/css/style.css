@@ -27,7 +27,6 @@ body {
 .container {
   width: 960px;
   margin: 0 auto;
-  border-radius: 5px;
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 10px;
 }
@@ -233,6 +232,17 @@ a.button-skip {
   margin-top: 60px;
 }
 
+#game .container {
+  position: relative;
+  height: 60vh;
+  text-align: center;
+}
+
+a.button.homepageReturn {
+  position: absolute;
+  bottom: 40px;
+}
+
 
 /*------------------------------*\
 
@@ -283,4 +293,31 @@ a.button-homepage {
 
 a.button-homepage:hover {
   text-shadow: 0 0 10px white;
+}
+
+
+/*------------------------------*\
+
+***** SMALL SCREEN
+
+\*------------------------------*/
+
+@media screen and (max-width: 1360px) {
+  a.button-skip {
+    font-size: 16px;
+    top: 40px;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .container {
+    width: 100%;
+  }
+  a.button-choice {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  a.button-skip {
+    font-size: 14px;
+  }
 }
