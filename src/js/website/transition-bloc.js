@@ -1,6 +1,7 @@
 $('body').prepend('<div class="bg-image"></div>');
 
 var intervalTime = 1000;
+var descriptionSkipped = false;
 
 // only #homepage displayed
 $('#description').css('display', 'none');
@@ -71,20 +72,29 @@ $(document).ready(function () {
 
   // if the skip button is clicked
   $('.button-skip').click(function () {
+    descriptionSkipped = true;
+    if (descriptionSkipped) {
+      clearTimeout(gameVisible);
+    }
     $('#description').fadeOut();
     $('.bg-image').fadeIn();
-    clearTimeout(gameVisible);
     window.setTimeout('gameAppearance()', intervalTime);
+    descriptionSkipped = false;
   })
 
   // if the logo is clicked then #homepage reappears
   $('a.logo').click(function () {
+    descriptionSkipped = true;
+    if (descriptionSkipped) {
+      clearTimeout(gameVisible);
+    }
     $('.bg-image').fadeIn();
     $('#description').fadeOut();
     $('#gameSection').fadeOut();
     $('#win').fadeOut();
     clearTimeout(gameVisible);
     window.setTimeout('homepageAppearance()', intervalTime);
+    descriptionSkipped = false;
   });
 });
 
@@ -114,5 +124,6 @@ var isMobile = {
 if (isMobile.any()) {
   $('.bg-image').css('display', 'none');
   $('header').css('display', 'none');
-  $('main').css('display', 'none');$('body').prepend('<div class="error"><div class="message">Ce jeu ne fonction pas sur mobile ou tablette !</div></div>');
+  $('main').css('display', 'none');
+  $('body').prepend('<div class="error"><div class="message">Ce jeu ne fonction pas sur mobile ou tablette !</div></div>');
 }
