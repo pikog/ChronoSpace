@@ -68,8 +68,7 @@ footer a.controlSound {
 \*------------------------------*/
 
 #homepage {
-  margin-top: 50vh;
-  transform: translateY(-50%);
+  margin-top: 60px;
 }
 
 #homepage h1 {
@@ -115,21 +114,21 @@ a.button-empire span:before {
   margin: 3px 9px 0 0;
 }
 
-a.button-rebel {
+a.button-alliance {
   box-shadow: 0 0 50px #0000ff;
   background: rgba(0, 0, 255, 0.5);
   transition: all linear 0.25s;
 }
 
-a.button-rebel:hover {
+a.button-alliance:hover {
   box-shadow: 0 0 50px #3366FF;
   background: rgba(51, 102, 255, 0.5);
 }
 
-a.button-rebel span:after {
+a.button-alliance span:after {
   content: "";
   display: block;
-  background: url("../img/logo_rebel.png") no-repeat;
+  background: url("../img/logo_alliance.png") no-repeat;
   background-size: cover;
   width: 20px;
   height: 20px;
@@ -149,7 +148,7 @@ a.button-score:hover {
 
 /*------------------------------*\
 
-***** SPEECH
+***** DECRIPTION
 
 \*------------------------------*/
 
@@ -202,7 +201,7 @@ a.button-score:hover {
 \*------------------------------*/
 
 #game {
-  margin-top: 10vh;
+  margin-top: 60px;
 }
 
 
