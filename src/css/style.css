@@ -361,19 +361,6 @@ div.icon.step2 {
   position: relative;
 }
 
-
-/*
-#game .gameOver.vador {
-  background-image: url(../img/vador.png);
-  background-position: -60px 0;
-}
-
-#game .gameOver.yoda {
-  background-image: url(../img/yoda.png);
-  background-position: -260px -10px;
-}
-*/
-
 a.button-play {
   color: white;
   text-decoration: none;

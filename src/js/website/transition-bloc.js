@@ -41,8 +41,6 @@ $(document).ready(function () {
     $('p.text-alliance').css('display', 'none');
     $('.button-play').removeClass('blue');
     $('.button-play').addClass('red');
-//    $('.gameOver').removeClass('yoda');
-//    $('.gameOver').addClass('vador');
   });
 
   // if Alliance is chosen
@@ -51,26 +49,20 @@ $(document).ready(function () {
     $('p.text-alliance').css('display', 'block');
     $('.button-play').removeClass('red');
     $('.button-play').addClass('blue');
-//    $('.gameOver').removeClass('vador');
-//    $('.gameOver').addClass('yoda');
   });
 
   // display #description then #game and play audios
   $('.button-choice').click(function () {
-    //$('audio#saber')[0].muted = false;
     $('audio#saber')[0].play();
     $('#homepage').addClass('animated zoomOutUp');
     window.setTimeout('descriptionAppearance()', intervalTime);
     window.setTimeout('descriptionDisappearance()', intervalTime * 15);
     gameVisible = window.setTimeout('gameAppearance()', intervalTime * 17.5);
-    //$('a.controlSound').css('display', 'block');
     if ($('i.fa').hasClass('fa-volume-off')) {
       $('audio#theme')[0].currentTime = 0;
     }
     //$('audio#theme')[0].muted = false; 
     $('audio#theme')[0].play();
-    //$('i.fa').removeClass('fa-volume-off');
-    //$('i.fa').addClass('fa-volume-up');
   });
 
   // stop or play music
@@ -125,7 +117,7 @@ $(document).ready(function () {
   });
 });
 
-// mobile phone et tablet test
+// mobile phone and tablet test
 
 var isMobile = {
   Android: function () {
