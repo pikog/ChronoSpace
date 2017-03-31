@@ -1,3 +1,6 @@
+/*
+* Boss object
+*/
 function Boss() {
   this.boss = $(".boss");
   this.chronoMove;
@@ -8,17 +11,26 @@ function Boss() {
   this.life = 5;
   this.lifeElem = $(".boss .life");
 }
-
+/*
+* Initialization of Boss
+* set life and transition with pos
+*/
 Boss.prototype.init = function () {
   this.boss.css("transition", "bottom 0s linear, left 1s linear");
   this.boss.css("left", 750);
   this.setLife(this.life);
 };
 
+/*
+* Set Life with expand/reduce the div
+*/
 Boss.prototype.setLife = function (life) {
   this.lifeElem.css("width", 10 * life);
 };
 
+/*
+* Reduce Life and check if win
+*/
 Boss.prototype.removeLife = function (life) {
   this.life--;
   this.setLife(this.life);
@@ -27,6 +39,10 @@ Boss.prototype.removeLife = function (life) {
   }
 };
 
+/*
+* Generate a random Y pos and move with smooth transition depends of the length of trip
+* Launch a Chrono to avoid generate a new pos when the move is not finished
+*/
 Boss.prototype.move = function () {
   if (this.chronoMove == null || this.chronoMove.result() >= this.timeEndMove) {
     if (this.chronoMove == null) {
@@ -41,6 +57,10 @@ Boss.prototype.move = function () {
   }
 };
 
+/*
+* Shoot bullet
+* Launch a Chrono to create a cadenced shots
+*/
 Boss.prototype.shoot = function () {
   if (this.chronoShoot == null || this.chronoShoot.result() >= 1200) {
     if (this.chronoShoot == null) {
@@ -53,10 +73,17 @@ Boss.prototype.shoot = function () {
   }
 };
 
+/*
+* Set skin
+* @param : side
+*/
 Boss.prototype.setSkin = function (val) {
   this.boss.css("background-image", "url(img/boss" + val + ".png)");
 }
 
+/*
+* @return : hitbox object
+*/
 Boss.prototype.getHitbox = function () {
   var hitbox = {
     radius: this.hitboxRadius
@@ -66,6 +93,9 @@ Boss.prototype.getHitbox = function () {
   return hitbox;
 }
 
+/*
+* reset pos, chrono, and life
+*/
 Boss.prototype.reset = function () {
   this.chronoMove = null;
   this.chronoShoot = null;

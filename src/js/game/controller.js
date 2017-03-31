@@ -1,7 +1,13 @@
+/*
+* Controller object
+*/
 function Controller() {
 
 }
 
+/*
+* Listen keydown especially Up/Down/Spacebar
+*/
 Controller.prototype.init = function () {
   var actual = this;
   $(document).on('keydown', function (e) {

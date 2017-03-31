@@ -1,3 +1,6 @@
+/*
+* Bullet object
+*/
 function Bullet() {
   this.bullet;
   this.hitboxRadius = 10 / 2;
@@ -5,6 +8,10 @@ function Bullet() {
   this.speed = 0.002;
 }
 
+/*
+* Create the bullet div
+* Set a direction and skin depends on shooter (Boss or Player)
+*/
 Bullet.prototype.init = function (entity, x, y) {
   this.bullet = $('<div class="bullet"></div>').appendTo(game.bulletsContainer);
   this.shooter = entity;
@@ -20,11 +27,18 @@ Bullet.prototype.init = function (entity, x, y) {
   game.bullets.push(this);
 };
 
+/*
+* Remove bullet form the Game
+*/
 Bullet.prototype.remove = function () {
   game.bullets.remove(this);
   this.bullet.remove();
 };
 
+/*
+* Move bullet with transition
+* depends on shooter
+*/
 Bullet.prototype.move = function () {
   if (this.shooter instanceof Player) {
     this.bullet.css("transition-duration", this.speed * (960 - this.getX()) + "s");
@@ -36,14 +50,23 @@ Bullet.prototype.move = function () {
   game.audio.shootSound();
 };
 
+/*
+* @return : X pos
+*/
 Bullet.prototype.getX = function () {
   return parseInt(this.bullet.css("left"));
 }
 
+/*
+* @return : Y pos
+*/
 Bullet.prototype.getY = function () {
   return parseInt(this.bullet.css("bottom"));
 }
 
+/*
+* @return : Hitbox object
+*/
 Bullet.prototype.getHitbox = function () {
   var hitbox = {
     radius: this.hitboxRadius

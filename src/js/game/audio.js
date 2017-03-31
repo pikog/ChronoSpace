@@ -1,3 +1,7 @@
+/*
+* Audio object
+* used when collision events or win/death events
+*/
 function Audio() {
   this.explosion = $("audio#explosion")[0];
   this.fail = $("audio#fail")[0];

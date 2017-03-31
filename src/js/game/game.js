@@ -1,11 +1,21 @@
+/* 
+* Main file
+* Define Game object
+*/
 function Game() {
   this.speed = 1;
+  /*
+  * Declare herited object of Game
+  */
   this.background = new Background();
   this.controller = new Controller();
   this.player = new Player();
   this.hud = new Hud();
   this.audio = new Audio();
   this.boss = new Boss();
+  /*
+  * Array and jQuery object who contains "small" and non-unique object
+  */
   this.obstaclesContainer = $(".obstacles");
   this.obstacles = [];
   this.speedersContainer = $(".speeders");
@@ -18,6 +28,13 @@ function Game() {
   this.side = 0;
 }
 
+/*
+* Initilize Game
+* @param side (empire = 1, rebel = 0)
+* remove black layer, set side skin
+* launch unique tick fonction of the game
+* create first obstacle and speeder
+*/
 Game.prototype.init = function (side) {
   this.side = side;
   this.player.setSkin(side);
@@ -30,6 +47,13 @@ Game.prototype.init = function (side) {
   this.hud.init();
 };
 
+/*
+* Main and unique tick fonction of the game
+* every 10ms
+* 2 steps : first runner(0), second shooter(1)
+* overall animate background, boss, obstacle and speeders
+*   check collision and update timer
+*/
 Game.prototype.ticks = function () {
   var actual = this;
   if (this.step == 1) {
@@ -62,6 +86,14 @@ Game.prototype.ticks = function () {
   }
 };
 
+
+/*
+* Check colision
+* @params
+*   entity: generally Boss or Player
+*   Array of projectiles: generally Array Bullets or Array Obstacles of Game
+* When collision launch collision function with in params the entity and the projectile
+*/
 Game.prototype.checkCollision = function (entity, projectiles) {
   var entityHitbox = entity.getHitbox();
   for (var i = 0; i < projectiles.length; i++) {
@@ -76,7 +108,11 @@ Game.prototype.checkCollision = function (entity, projectiles) {
     }
   }
 }
-
+/*
+* Collision function
+* @params: entity (Boss or Player), projectile (Bullet or Obstacle)
+* different scenario with each case
+*/
 Game.prototype.collision = function (entity, projectile) {
   if (projectile instanceof Obstacle) {
     this.speed = 1;
@@ -99,7 +135,10 @@ Game.prototype.collision = function (entity, projectile) {
     this.audio.explosionSound();
   }
 }
-
+/*
+* Generate new obstacle and check progression in step 0 (Runner)
+* Launch by the Game tick
+*/
 Game.prototype.autoGenerateObstacle = function () {
   for (var i = 0; i < this.obstacles.length; i++) {
     if (this.obstacles[i].getX() == -150) {
@@ -112,7 +151,10 @@ Game.prototype.autoGenerateObstacle = function () {
     }
   }
 }
-
+/*
+* Generate new speeder in step 0 (Runner)
+* Launch by the Game tick
+*/
 Game.prototype.autoGenerateSpeeder = function () {
   for (var i = 0; i < this.speeders.length; i++) {
     if (this.speeders[i].getX() == -50) {
@@ -122,7 +164,10 @@ Game.prototype.autoGenerateSpeeder = function () {
   }
 }
 
-
+/*
+* Reset Game espacially var or entity pos
+* Used when death or return to home
+*/
 Game.prototype.reset = function () {
   clearInterval(this.tick);
   $(document).off('keydown');
@@ -140,11 +185,19 @@ Game.prototype.reset = function () {
   this.step = 0;
 }
 
+/*
+* Game over function
+* Display black layer and reset
+*/
 Game.prototype.gameOver = function () {
   $(".gameOver").fadeIn();
   game.reset();
 }
 
+/*
+* Go to step shooter (1)
+* Short animation and intialise Boss
+*/
 Game.prototype.nextStep = function () {
   clearInterval(this.tick);
   var actual = this;
@@ -166,6 +219,10 @@ Game.prototype.nextStep = function () {
   }, 1200);
 }
 
+/*
+* Launch when Win
+* Short animation, and redirection on the win page, with custom parms in URL
+*/
 Game.prototype.win = function () {
   clearInterval(this.tick);
   var actual = this;

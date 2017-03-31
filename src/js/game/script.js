@@ -1,8 +1,16 @@
 $(document).ready(function () {
+  
+  /*Import Class with gulp-include */
+  /*
+  * Controller object
+  */
   function Controller() {
   
   }
   
+  /*
+  * Listen keydown especially Up/Down/Spacebar
+  */
   Controller.prototype.init = function () {
     var actual = this;
     $(document).on('keydown', function (e) {
@@ -19,11 +27,18 @@ $(document).ready(function () {
     });
   };
   
+  /*
+  * Background object
+  */
   function Background() {
     this.background = $("#game .background");
     this.numberLayer = this.background.css("background-image").split(",").length;
   }
   
+  /*
+  * Function to scroll background layers at different speed
+  * @param : speed of Game
+  */
   Background.prototype.scroll = function (speed) {
     this.setX(0, this.getX(0) - speed);
     this.setX(1, this.getX(1) - speed*0.7);
@@ -31,18 +46,33 @@ $(document).ready(function () {
     this.setX(3, this.getX(3) - speed*0.5);
   };
   
+  /*
+  * @param : layer (0 = back)
+  * @return : true layer in Array css background
+  */
   Background.prototype.trueLayer = function (layer) {
     return this.numberLayer - 1 - layer;
   };
-  
+  /*
+  * @param : layer (0 = back)
+  * @return : vertical X position
+  */
   Background.prototype.getX = function (layer) {
     return parseInt(this.background.css("background-position").split(",")[this.trueLayer(layer)].split("px")[0]);
   };
   
+  /*
+  * @param : layer (0 = back)
+  * @return : horizontal Y position
+  */
   Background.prototype.getY = function (layer) {
     return parseInt(this.background.css("background-position").split(",")[this.trueLayer(layer)].split("px")[1]);
   };
   
+  
+  /*
+  * @param : layer (0 = back), and value of X position
+  */
   Background.prototype.setX = function (layer, val) {
     var result = "";
     for(var i = 0; i < this.numberLayer; i++) {
@@ -60,6 +90,9 @@ $(document).ready(function () {
     this.background.css("background-position", result);
   };
   
+  /*
+  * @param : layer (0 = back), and value of Y position
+  */
   Background.prototype.setY = function (layer, val) {
     var result = "";
     for(var i = 0; i < this.numberLayer; i++) {
@@ -77,6 +110,9 @@ $(document).ready(function () {
     this.background.css("background-position", result);
   };
   
+  /*
+  * Reset all layer position
+  */
   Background.prototype.reset = function () {
     for(var i = 0; i < this.numberLayer; i++) {
       this.setX(i, 0);
@@ -88,14 +124,24 @@ $(document).ready(function () {
   
   
   
+  /* 
+  * Main file
+  * Define Game object
+  */
   function Game() {
     this.speed = 1;
+    /*
+    * Declare herited object of Game
+    */
     this.background = new Background();
     this.controller = new Controller();
     this.player = new Player();
     this.hud = new Hud();
     this.audio = new Audio();
     this.boss = new Boss();
+    /*
+    * Array and jQuery object who contains "small" and non-unique object
+    */
     this.obstaclesContainer = $(".obstacles");
     this.obstacles = [];
     this.speedersContainer = $(".speeders");
@@ -108,6 +154,13 @@ $(document).ready(function () {
     this.side = 0;
   }
   
+  /*
+  * Initilize Game
+  * @param side (empire = 1, rebel = 0)
+  * remove black layer, set side skin
+  * launch unique tick fonction of the game
+  * create first obstacle and speeder
+  */
   Game.prototype.init = function (side) {
     this.side = side;
     this.player.setSkin(side);
@@ -120,6 +173,13 @@ $(document).ready(function () {
     this.hud.init();
   };
   
+  /*
+  * Main and unique tick fonction of the game
+  * every 10ms
+  * 2 steps : first runner(0), second shooter(1)
+  * overall animate background, boss, obstacle and speeders
+  *   check collision and update timer
+  */
   Game.prototype.ticks = function () {
     var actual = this;
     if (this.step == 1) {
@@ -152,6 +212,14 @@ $(document).ready(function () {
     }
   };
   
+  
+  /*
+  * Check colision
+  * @params
+  *   entity: generally Boss or Player
+  *   Array of projectiles: generally Array Bullets or Array Obstacles of Game
+  * When collision launch collision function with in params the entity and the projectile
+  */
   Game.prototype.checkCollision = function (entity, projectiles) {
     var entityHitbox = entity.getHitbox();
     for (var i = 0; i < projectiles.length; i++) {
@@ -166,7 +234,11 @@ $(document).ready(function () {
       }
     }
   }
-  
+  /*
+  * Collision function
+  * @params: entity (Boss or Player), projectile (Bullet or Obstacle)
+  * different scenario with each case
+  */
   Game.prototype.collision = function (entity, projectile) {
     if (projectile instanceof Obstacle) {
       this.speed = 1;
@@ -189,7 +261,10 @@ $(document).ready(function () {
       this.audio.explosionSound();
     }
   }
-  
+  /*
+  * Generate new obstacle and check progression in step 0 (Runner)
+  * Launch by the Game tick
+  */
   Game.prototype.autoGenerateObstacle = function () {
     for (var i = 0; i < this.obstacles.length; i++) {
       if (this.obstacles[i].getX() == -150) {
@@ -202,7 +277,10 @@ $(document).ready(function () {
       }
     }
   }
-  
+  /*
+  * Generate new speeder in step 0 (Runner)
+  * Launch by the Game tick
+  */
   Game.prototype.autoGenerateSpeeder = function () {
     for (var i = 0; i < this.speeders.length; i++) {
       if (this.speeders[i].getX() == -50) {
@@ -212,7 +290,10 @@ $(document).ready(function () {
     }
   }
   
-  
+  /*
+  * Reset Game espacially var or entity pos
+  * Used when death or return to home
+  */
   Game.prototype.reset = function () {
     clearInterval(this.tick);
     $(document).off('keydown');
@@ -230,11 +311,19 @@ $(document).ready(function () {
     this.step = 0;
   }
   
+  /*
+  * Game over function
+  * Display black layer and reset
+  */
   Game.prototype.gameOver = function () {
     $(".gameOver").fadeIn();
     game.reset();
   }
   
+  /*
+  * Go to step shooter (1)
+  * Short animation and intialise Boss
+  */
   Game.prototype.nextStep = function () {
     clearInterval(this.tick);
     var actual = this;
@@ -256,6 +345,10 @@ $(document).ready(function () {
     }, 1200);
   }
   
+  /*
+  * Launch when Win
+  * Short animation, and redirection on the win page, with custom parms in URL
+  */
   Game.prototype.win = function () {
     clearInterval(this.tick);
     var actual = this;
@@ -441,6 +534,9 @@ $(document).ready(function () {
     return hitbox;
   }
   
+  /*
+  * Boss object
+  */
   function Boss() {
     this.boss = $(".boss");
     this.chronoMove;
@@ -451,17 +547,26 @@ $(document).ready(function () {
     this.life = 5;
     this.lifeElem = $(".boss .life");
   }
-  
+  /*
+  * Initialization of Boss
+  * set life and transition with pos
+  */
   Boss.prototype.init = function () {
     this.boss.css("transition", "bottom 0s linear, left 1s linear");
     this.boss.css("left", 750);
     this.setLife(this.life);
   };
   
+  /*
+  * Set Life with expand/reduce the div
+  */
   Boss.prototype.setLife = function (life) {
     this.lifeElem.css("width", 10 * life);
   };
   
+  /*
+  * Reduce Life and check if win
+  */
   Boss.prototype.removeLife = function (life) {
     this.life--;
     this.setLife(this.life);
@@ -470,6 +575,10 @@ $(document).ready(function () {
     }
   };
   
+  /*
+  * Generate a random Y pos and move with smooth transition depends of the length of trip
+  * Launch a Chrono to avoid generate a new pos when the move is not finished
+  */
   Boss.prototype.move = function () {
     if (this.chronoMove == null || this.chronoMove.result() >= this.timeEndMove) {
       if (this.chronoMove == null) {
@@ -484,6 +593,10 @@ $(document).ready(function () {
     }
   };
   
+  /*
+  * Shoot bullet
+  * Launch a Chrono to create a cadenced shots
+  */
   Boss.prototype.shoot = function () {
     if (this.chronoShoot == null || this.chronoShoot.result() >= 1200) {
       if (this.chronoShoot == null) {
@@ -496,10 +609,17 @@ $(document).ready(function () {
     }
   };
   
+  /*
+  * Set skin
+  * @param : side
+  */
   Boss.prototype.setSkin = function (val) {
     this.boss.css("background-image", "url(img/boss" + val + ".png)");
   }
   
+  /*
+  * @return : hitbox object
+  */
   Boss.prototype.getHitbox = function () {
     var hitbox = {
       radius: this.hitboxRadius
@@ -509,6 +629,9 @@ $(document).ready(function () {
     return hitbox;
   }
   
+  /*
+  * reset pos, chrono, and life
+  */
   Boss.prototype.reset = function () {
     this.chronoMove = null;
     this.chronoShoot = null;
@@ -521,6 +644,9 @@ $(document).ready(function () {
     this.setLife(5);
   }
   
+  /*
+  * Bullet object
+  */
   function Bullet() {
     this.bullet;
     this.hitboxRadius = 10 / 2;
@@ -528,6 +654,10 @@ $(document).ready(function () {
     this.speed = 0.002;
   }
   
+  /*
+  * Create the bullet div
+  * Set a direction and skin depends on shooter (Boss or Player)
+  */
   Bullet.prototype.init = function (entity, x, y) {
     this.bullet = $('<div class="bullet"></div>').appendTo(game.bulletsContainer);
     this.shooter = entity;
@@ -543,11 +673,18 @@ $(document).ready(function () {
     game.bullets.push(this);
   };
   
+  /*
+  * Remove bullet form the Game
+  */
   Bullet.prototype.remove = function () {
     game.bullets.remove(this);
     this.bullet.remove();
   };
   
+  /*
+  * Move bullet with transition
+  * depends on shooter
+  */
   Bullet.prototype.move = function () {
     if (this.shooter instanceof Player) {
       this.bullet.css("transition-duration", this.speed * (960 - this.getX()) + "s");
@@ -559,14 +696,23 @@ $(document).ready(function () {
     game.audio.shootSound();
   };
   
+  /*
+  * @return : X pos
+  */
   Bullet.prototype.getX = function () {
     return parseInt(this.bullet.css("left"));
   }
   
+  /*
+  * @return : Y pos
+  */
   Bullet.prototype.getY = function () {
     return parseInt(this.bullet.css("bottom"));
   }
   
+  /*
+  * @return : Hitbox object
+  */
   Bullet.prototype.getHitbox = function () {
     var hitbox = {
       radius: this.hitboxRadius
@@ -581,6 +727,9 @@ $(document).ready(function () {
     return hitbox;
   }
   
+  /*
+  * HUD object
+  */
   function Hud() {
     this.hud = $(".hud");
     this.lifeElem = $(".hud .life");
@@ -634,6 +783,10 @@ $(document).ready(function () {
     this.hud.show();
   };
   
+  /*
+  * Audio object
+  * used when collision events or win/death events
+  */
   function Audio() {
     this.explosion = $("audio#explosion")[0];
     this.fail = $("audio#fail")[0];
@@ -687,13 +840,17 @@ $(document).ready(function () {
     }
   }
   
+  
+  /* Game var create */
   var game = new Game();
   var side = 0;
   
+  /* Set side empire or rebel */
   $("a.button-empire").on('click', function(e) {
     side = 1;
   });
   
+  /* Stop the game when return to home */
   $("a.button-play").on('click', function(e) {
     e.preventDefault();
     game.init(side);
@@ -702,4 +859,5 @@ $(document).ready(function () {
     e.preventDefault();
     game.gameOver();
   });
+  
 });

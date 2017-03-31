@@ -1,3 +1,6 @@
+/*
+* HUD object
+*/
 function Hud() {
   this.hud = $(".hud");
   this.lifeElem = $(".hud .life");
