@@ -39,12 +39,20 @@ $(document).ready(function () {
   $('.button-empire').click(function () {
     $('p.text-empire').css('display', 'block');
     $('p.text-alliance').css('display', 'none');
+    $('.button-play').removeClass('blue');
+    $('.button-play').addClass('red');
+//    $('.gameOver').removeClass('yoda');
+//    $('.gameOver').addClass('vador');
   });
 
   // if Alliance is chosen
   $('.button-alliance').click(function () {
     $('p.text-empire').css('display', 'none');
     $('p.text-alliance').css('display', 'block');
+    $('.button-play').removeClass('red');
+    $('.button-play').addClass('blue');
+//    $('.gameOver').removeClass('vador');
+//    $('.gameOver').addClass('yoda');
   });
 
   // display #description then #game and play audios
@@ -53,8 +61,8 @@ $(document).ready(function () {
     $('audio#saber')[0].play();
     $('#homepage').addClass('animated zoomOutUp');
     window.setTimeout('descriptionAppearance()', intervalTime);
-    window.setTimeout('descriptionDisappearance()', intervalTime * 12.5);
-    gameVisible = window.setTimeout('gameAppearance()', intervalTime * 15);
+    window.setTimeout('descriptionDisappearance()', intervalTime * 15);
+    gameVisible = window.setTimeout('gameAppearance()', intervalTime * 17.5);
     $('a.controlSound').css('display', 'block');
     if ($('i.fa').hasClass('fa-volume-off')) {
       $('audio#theme')[0].currentTime = 0;
@@ -106,7 +114,6 @@ $(document).ready(function () {
     $('.bg-image').fadeIn();
     $('#description').fadeOut();
     $('#gameSection').fadeOut();
-    clearTimeout(gameVisible);
     window.setTimeout('homepageAppearance()', intervalTime);
     descriptionSkipped = false;
   });

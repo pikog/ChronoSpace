@@ -355,15 +355,29 @@ div.icon.step2 {
 }
 
 
-/*Buttons*/
+/*Buttons and style*/
 
 #game .gameOver {
   position: relative;
 }
 
+
+/*
+#game .gameOver.vador {
+  background-image: url(../img/vador.png);
+  background-position: -60px 0;
+}
+
+#game .gameOver.yoda {
+  background-image: url(../img/yoda.png);
+  background-position: -260px -10px;
+}
+*/
+
 a.button-play {
   color: white;
   text-decoration: none;
+  font-family: Starjedi, sans-serif;
   font-size: 32px;
   position: absolute;
   top: 50%;
@@ -375,6 +389,16 @@ a.button-play {
 
 a.button-play:hover {
   text-shadow: 0 0 10px white;
+}
+
+#game .gameOver.vador {
+  background-image: url(../img/vador.png);
+  background-position: -60px 0;
+}
+
+#game .gameOver.yoda {
+  background-image: url(../img/yoda.png);
+  background-position: -260px -10px;
 }
 
 .homepageReturn {
