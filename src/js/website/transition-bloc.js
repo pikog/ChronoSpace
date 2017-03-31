@@ -57,20 +57,20 @@ $(document).ready(function () {
 
   // display #description then #game and play audios
   $('.button-choice').click(function () {
-    $('audio#saber')[0].muted = false;
+    //$('audio#saber')[0].muted = false;
     $('audio#saber')[0].play();
     $('#homepage').addClass('animated zoomOutUp');
     window.setTimeout('descriptionAppearance()', intervalTime);
     window.setTimeout('descriptionDisappearance()', intervalTime * 15);
     gameVisible = window.setTimeout('gameAppearance()', intervalTime * 17.5);
-    $('a.controlSound').css('display', 'block');
+    //$('a.controlSound').css('display', 'block');
     if ($('i.fa').hasClass('fa-volume-off')) {
       $('audio#theme')[0].currentTime = 0;
     }
-    $('audio#theme')[0].muted = false;
+    //$('audio#theme')[0].muted = false; 
     $('audio#theme')[0].play();
-    $('i.fa').removeClass('fa-volume-off');
-    $('i.fa').addClass('fa-volume-up');
+    //$('i.fa').removeClass('fa-volume-off');
+    //$('i.fa').addClass('fa-volume-up');
   });
 
   // stop or play music

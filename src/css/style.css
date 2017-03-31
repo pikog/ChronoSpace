@@ -104,7 +104,7 @@ footer a.controlSound {
 }
 
 a.controlSound {
-  display: none;
+  display: block;
 }
 
 
