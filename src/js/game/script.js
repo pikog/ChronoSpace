@@ -374,6 +374,9 @@ $(document).ready(function () {
     }, 3000);
   }
   
+  /*
+  * Player Object
+  */
   function Player() {
     this.player = $(".player");
     this.speed = 150;
@@ -381,6 +384,11 @@ $(document).ready(function () {
     this.chronoShoot;
   }
   
+  /*
+  * Move player Up
+  * launch when Arrow Up
+  * Verify border colision
+  */
   Player.prototype.up = function () {
     this.player.css("transition", "bottom 1000ms cubic-bezier(0.165, 0.84, 0.44, 1)");
     if (this.getY() + 100 + this.speed >= 500) {
@@ -390,6 +398,11 @@ $(document).ready(function () {
     }
   }
   
+  /*
+  * Move player Down
+  * launch when Arrow Down
+  * Verify border collision
+  */
   Player.prototype.down = function () {
     this.player.css("transition", "bottom 1000ms cubic-bezier(0.165, 0.84, 0.44, 1)");
     if (this.getY() - this.speed <= 0) {
@@ -399,28 +412,51 @@ $(document).ready(function () {
     }
   }
   
+  /*
+  * @return : X pos
+  */
   Player.prototype.getX = function () {
     return parseInt(this.player.css("left"));
   }
   
+  /*
+  * @return : Y pos
+  */
   Player.prototype.getY = function () {
     return parseInt(this.player.css("bottom"));
   }
   
+  /*
+  * Set X pos
+  * @params : value of X pos, speed of animation
+  * used for animation scene
+  */
   Player.prototype.setX = function (val, speed) {
     this.player.css("transition", "left " + speed + "s linear");
     this.player.css("left", val);
   }
   
+  /*
+  * Set Y pos
+  * @params : value of Y pos, speed of animation
+  * used for animation scene
+  */
   Player.prototype.setY = function (val, speed) {
     this.player.css("transition", "bottom " + speed + "s linear");
     this.player.css("bottom", val);
   }
   
+  /*
+  * Set skin
+  * @params : side
+  */
   Player.prototype.setSkin = function (val) {
     this.player.css("background-image", "url(img/ship" + val + ".png)");
   }
   
+  /*
+  * @return : hitbox object
+  */
   Player.prototype.getHitbox = function () {
     var hitbox = {
       radius: this.hitboxRadius
@@ -430,6 +466,10 @@ $(document).ready(function () {
     return hitbox;
   }
   
+  /*
+  * Shoot bullet
+  * Launch a Chrono to create a cadenced shots
+  */
   Player.prototype.shoot = function () {
     if (this.chronoShoot == null || this.chronoShoot.result() >= 700) {
       if (this.chronoShoot == null) {
@@ -442,6 +482,10 @@ $(document).ready(function () {
     }
   };
   
+  /*
+  * Reset player
+  * espcially pos and chrono
+  */
   Player.prototype.reset = function () {
     this.chronoShoot = null;
     this.player.css("transition", "none");
@@ -449,11 +493,19 @@ $(document).ready(function () {
     this.player.css("left", 60);
   }
   
+  /*
+  * Obstacle Object
+  */
   function Obstacle() {
     this.obstacle;
     this.hitboxRadius = 130 / 2;
   }
   
+  /*
+  * Create the obstacle div
+  * Set a random Y pos and random skin
+  * launch movement
+  */
   Obstacle.prototype.init = function (speed) {
     this.obstacle = $('<div class="obstacle"></div>').appendTo(game.obstaclesContainer);
     game.obstacles.push(this);
@@ -462,24 +514,42 @@ $(document).ready(function () {
     this.setSpeed(speed);
   };
   
+  /*
+  * Remove obstacle form the Game
+  */
   Obstacle.prototype.remove = function () {
     game.obstacles.remove(this);
     this.obstacle.remove();
   };
   
+  /*
+  * Move bullet with smooth transition
+  * depends on length of trip
+  * launch by tick game because speed can change
+  * @param : speed of the game
+  */
   Obstacle.prototype.setSpeed = function (speed) {
     this.obstacle.css("transition", "left " + (this.getX() + 150) / (speed / 2) + "ms linear");
     this.obstacle.css("left", -150 - Math.abs(this.getX() * 0.000001));
   };
   
+  /*
+  * @return : X pos
+  */
   Obstacle.prototype.getX = function () {
     return parseInt(this.obstacle.css("left"));
   }
   
+  /*
+  * @return : Y pos
+  */
   Obstacle.prototype.getY = function () {
     return parseInt(this.obstacle.css("bottom"));
   }
   
+  /*
+  * @return : Hitbox object
+  */
   Obstacle.prototype.getHitbox = function () {
     var hitbox = {
       radius: this.hitboxRadius
@@ -489,11 +559,20 @@ $(document).ready(function () {
     return hitbox;
   }
   
+  /*
+  * Speeder object
+  */
   function Speeder() {
     this.speeder;
     this.hitboxRadius = 50 / 2;
   }
   
+  /*
+  * Create the speeder div
+  * Set a random Y pos and random skin
+  * avoid collsion whith obstacle
+  * launch movement
+  */
   Speeder.prototype.init = function (speed) {
     this.speeder = $('<div class="speeder"></div>').appendTo(game.speedersContainer);
     game.speeders.push(this);
@@ -507,24 +586,42 @@ $(document).ready(function () {
     this.setSpeed(speed);
   };
   
+  /*
+  * Remove speeder form the Game
+  */
   Speeder.prototype.remove = function () {
     game.speeders.remove(this);
     this.speeder.remove();
   };
   
+  /*
+  * Move speeder with smooth transition
+  * depends on length of trip
+  * launch by tick game because speed can change
+  * @param : speed of the game
+  */
   Speeder.prototype.setSpeed = function (speed) {
     this.speeder.css("transition", "left " + (this.getX() + 50) / (speed / 2) + "ms linear");
     this.speeder.css("left", -50 - Math.abs(this.getX() * 0.000001));
   };
   
+  /*
+  * @return : X pos
+  */
   Speeder.prototype.getX = function () {
     return parseInt(this.speeder.css("left"));
   }
   
+  /*
+  * @return : Y pos
+  */
   Speeder.prototype.getY = function () {
     return parseInt(this.speeder.css("bottom"));
   }
   
+  /*
+  * @return : Hitbox object
+  */
   Speeder.prototype.getHitbox = function () {
     var hitbox = {
       radius: this.hitboxRadius
@@ -729,6 +826,7 @@ $(document).ready(function () {
   
   /*
   * HUD object
+  * Contains life of player, time, goal
   */
   function Hud() {
     this.hud = $(".hud");
@@ -740,21 +838,33 @@ $(document).ready(function () {
     this.progression = 0;
   }
   
+  /*
+  * Luanch chrono and set life
+  */
   Hud.prototype.init = function () {
     this.chrono = new Chrono();
     this.setLife(this.life);
   };
-  
+  /*
+  * Update Chrono
+  */
   Hud.prototype.timeUpdate = function () {
     if (this.chrono) {
       this.timeElem.text((this.chrono.result() / 1000).toFixed(1) + "s");
     }
   };
   
+  /*
+  * Set life with expand/reduce div
+  * @param : number of life
+  */
   Hud.prototype.setLife = function (life) {
     this.lifeElem.css("width", 30 * life);
   };
   
+  /*
+  * Reduce Life and check if death
+  */
   Hud.prototype.removeLife = function (life) {
     this.life--;
     this.setLife(this.life);
@@ -764,15 +874,26 @@ $(document).ready(function () {
     }
   };
   
+  /*
+  * Increase progression
+  */
   Hud.prototype.addProgression = function () {
     this.setProgression(++this.progression);
     return this.progression;
   };
   
+  /*
+  * set progression graphic element by expand/reduce div
+  * @param : progression (<= game goal)
+  */
   Hud.prototype.setProgression = function (progression) {
     this.goalElem.css("width", (progression / game.goal) * 100 + "%");
   };
   
+  /*
+  * reset HUD
+  * espcially reset Chrono, life, progression
+  */
   Hud.prototype.reset = function () {
     this.chrono = null;
     this.timeElem.text("0s");
@@ -820,6 +941,14 @@ $(document).ready(function () {
     this.bonus.currentTime = 0;
     this.bonus.play();
   };
+  /*
+  * Misc function
+  */
+  
+  /*
+  * Chrono object
+  * used the difference of begin date and en date
+  */
   function Chrono() {
     this.start = new Date();
   }
@@ -828,11 +957,18 @@ $(document).ready(function () {
     this.start = new Date();
   }
   
+  /*
+  * @return : chrono time in ms
+  */
   Chrono.prototype.result = function () {
     var end = new Date();
     return end.getTime() - this.start.getTime();
   }
   
+  /*
+  * Upgrade array
+  * easy remove a ktem form an array
+  */
   Array.prototype.remove = function (item) {
     var index = this.indexOf(item);
     if (index > -1) {
