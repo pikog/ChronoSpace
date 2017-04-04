@@ -155,7 +155,7 @@ $(document).ready(function () {
   }
   
   /*
-  * Initilize Game
+  * Initialize Game
   * @param side (empire = 1, rebel = 0)
   * remove black layer, set side skin
   * launch unique tick fonction of the game
